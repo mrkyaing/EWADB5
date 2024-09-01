@@ -1,7 +1,5 @@
-[[_TOC_]]
 # Web Application Development With ASP.NET Core  MVC 5 and .NET 8.0
 <IMG  src="https://miro.medium.com/max/700/1*rGOjngS9k-HIPYB8xAGZhQ.jpeg"/>
-
 - C# Language Fundamentals 
 - OOP with C# Language
 - Design Pattern (most commonly-used patterns)
