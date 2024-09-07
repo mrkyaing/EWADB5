@@ -1,4 +1,6 @@
 ﻿namespace OOP_Day1;
+using StudentInfo;
+using TeacherInfo;
 class Program
 {
     static void Main(string[] args)
@@ -29,5 +31,9 @@ class Program
         Utilitity.GetDate();
         Console.WriteLine(Utilitity.message);
         Car.GetModel();
+        Teacher.Greeting();
+        Student.Greeting();
+        Student student=new Student();
+        student.SayHello();
     }
 }
