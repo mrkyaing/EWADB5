@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script>
+        function SayHi(){
+            alert("Hi,I am MG");
+            var h1tag=document.getElementById("myh1");//select the h1 tag
+            h1tag.innerHTML="New Welcome Message";//change the value of h1
+            h1tag.style.color="yellow";//change the color h1 tag
+            h1tag.style.textAlign="center";//change the alignment
+        }
+       </script>
+</head>
+<body>
+    <h1 id="myh1" style="color:red;">Welcome to my page</h1>
+    <p style="text-align: center;">This is my first paragraph tag.</p>
+    <div>This is my div tag.</div>
+    <button onclick="SayHi()">Click Me</button>
+    <button onclick="alert('hi')">Say Hello</button>
+</body>
+</html>

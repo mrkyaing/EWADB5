@@ -1,0 +1,10 @@
+body {
+    background-color: brown;
+}
+div {
+    text-align: center;
+    display: block;
+}
+button {
+    color: blue;
+}
