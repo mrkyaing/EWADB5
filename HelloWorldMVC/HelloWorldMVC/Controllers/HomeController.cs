@@ -40,20 +40,31 @@ namespace HelloWorldMVC.Controllers
             byte[] fileInByte=System.IO.File.ReadAllBytes(filePath);
             return File(fileInByte,"text/png",fileName);
         }
-        //host://port/home/iam
-        [ActionName("iam")]
-        public IActionResult DoMe()
-        {
-            return View("DoMe");
-        }
-
         [HttpGet]
-        public int Add(int n1,int n2) => n1 + n2;//host://port/home/add  output : 2
+        public int Add(int n1, int n2) => n1 + n2;//host://port/home/add  output : 2
 
         [HttpPost]
-        public int Sum(int n1,int n2)
+        public int Sum(int n1, int n2)//SayHello ..//host:/port/home/sayhello
         {
             return n1 + n2;
+        }
+        ////host://port/home/iam
+        //[ActionName("iam")]
+        public IActionResult DoMe()
+        {
+            ViewData["Me"] = "Bill";
+            TempData["Msg"] = "Weekend";
+            return View();
+        }
+        public IActionResult Test()
+        {
+            ViewData["V"] = ViewData["Me"];//NULL
+            if (TempData.ContainsKey("Msg"))
+            {
+                var data = TempData["Msg"].ToString();
+                ViewData["T"] = data;//value of TempData ,"Weekend"
+            }
+            return View();
         }
     }
 }

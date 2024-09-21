@@ -1,0 +1,73 @@
+﻿<head>
+    <style>
+        span {
+            color: red
+        }
+        .result {
+            color: green;
+        }
+    </style>
+    <script>
+        function fillUserActionData() {
+            var selectedCurrency = "@ViewBag.SelectedCurrency";
+            var inputedAmount = "@ViewBag.InputAmount";
+            if (selectedCurrency != "") {
+                document.getElementById("selectedCurrency").value = selectedCurrency;
+            }
+            if (inputedAmount > 0) {
+                document.getElementById("InputedAmount").value = inputedAmount;
+            }
+        }
+    </script>
+</head>
+    @{
+        var error = ViewData["Invalid"];
+        if (error != null)
+        {
+        <span>@error</span>
+        }
+    }
+    <body onload="fillUserActionData()">
+    <center>
+        <h1>
+            Currency Convertor Version 2 To MMK
+        </h1>
+        <form action="/CurrrencyConvertor/ConvertorV2" method="post">
+            <table>
+                <tr>
+                    <td>Choose Currency:</td>
+                    <td>
+                        <select name="fromCurrency" id="selectedCurrency">
+                            <option value="">Select Currency</option>
+                            <option value="USD">USD</option>
+                            <option value="SDG">SDG</option>
+                            <option value="BAHT">BAHT</option>
+                            <option value="YAN">YAN</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Amount:</td>
+                    <td>
+                        <input type="number" min="1" step="0.1" name="amount" required placeholder="Type amount" id="InputedAmount"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="result">Result (MMK) :</td>
+                    <td class="result">
+                        <input type="text" value="@ViewBag.Result" readonly class="result" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Convert" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+    </body>
+
+
+
