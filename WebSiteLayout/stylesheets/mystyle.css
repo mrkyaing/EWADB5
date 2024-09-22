@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+header{
+    background-color: darkseagreen;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    padding: 10px;
+}
+
+nav{
+    float: left;
+    width: 10%;
+    background-color: darkseagreen;
+    padding: 10px;
+    height: 600px;
+}
+nav li{
+    list-style: none;
+}
+article{
+    float: right;
+    width: 90%;
+    padding: 10px;
+    height: 600px;
+}
+
+footer{
+    background-color: darkseagreen;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+}

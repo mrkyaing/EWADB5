@@ -54,6 +54,7 @@ namespace HelloWorldMVC.Controllers
         {
             ViewData["Me"] = "Bill";
             TempData["Msg"] = "Weekend";
+            TempData.Keep();
             return View();
         }
         public IActionResult Test()

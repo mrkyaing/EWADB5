@@ -1,0 +1,29 @@
+﻿<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<button id="btnCurrentTime">
+    show me Current time
+</button>
+<p id="showCurrentTime" style="display:none"></p>
+<button id="btnCount">
+    show me Count time
+</button>
+<p id="showCount" style="display:none"></p>
+<script>
+    $("#btnCurrentTime").on('click', function () {
+        var url = '/Home/GetCurrentTime';
+        $.get(url, null, function (res) {
+            const showCurrentTime = $('#showCurrentTime');
+            showCurrentTime.show('slow');
+            showCurrentTime.html(res);
+        });
+    });
+    $("#btnCount").on('click', function () {
+        var url = '/Home/GetCount';
+        $.get(url, null, function (res) {
+                const showCount = $('#showCount');
+            showCount.show('slow');
+            showCount.html(res);
+        });
+    });
+</script>
