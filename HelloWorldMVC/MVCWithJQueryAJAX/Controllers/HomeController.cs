@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MVCWithJQueryAJAX.Models;
 
 namespace MVCWithJQueryAJAX.Controllers
 {
@@ -30,5 +31,15 @@ namespace MVCWithJQueryAJAX.Controllers
         public string GetCurrentTime() => DateTime.Now.ToString();
 
         public int GetCount() => _totalCount++;
+
+        public IActionResult MakeOrder() => View();
+
+        [HttpPost]
+        public JsonResult MakeOrder(OrderModel order)
+        {
+            order.CalculatedResult = order.UnitPrice * order.Quantity;//300*3
+            return Json(order);
+        }
+
     }
 }
