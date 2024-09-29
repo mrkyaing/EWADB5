@@ -1,0 +1,25 @@
+﻿<form action="/home/register" method="post">
+
+    @for(int i = 0; i < 3; i++)
+    {
+        <div class="mb-3">
+            <label class="form-label">Employee Id</label>
+            <input type="text" name="[@i].Id" class="form-control" required placeholder="Type Employee id" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" name="[@i].FristName" class="form-control" required placeholder="Type Frist Name" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="[@i].LastName" class="form-control" required placeholder="Type Last Name " />
+        </div>
+    }
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Register</button>
+    </div>
+    <div class="mb-3">
+        <input type="text" value="@ViewBag.RegisterCount" class="form-control" readonly/>
+    </div>
+
+</form>

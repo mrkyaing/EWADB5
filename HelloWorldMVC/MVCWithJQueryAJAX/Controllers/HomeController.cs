@@ -41,5 +41,12 @@ namespace MVCWithJQueryAJAX.Controllers
             return Json(order);
         }
 
+        public IActionResult Register()=>View();
+        [HttpPost]
+        public IActionResult Register(IList<EmployeeModel> employees)
+        {
+            ViewBag.RegisterCount=employees.Count;
+            return View();
+        }
     }
 }
