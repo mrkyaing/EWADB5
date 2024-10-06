@@ -11,6 +11,7 @@ namespace CloudHRMS.Controllers
         //declare the private global variable for ApplicationDbContext
         private readonly ApplicationDbContext _applicationDbContext;
         ErrorViewModel error = new ErrorViewModel();
+
         //Constructor Dependency injection in here to call the ApplicationDbContext
         public EmployeeController(ApplicationDbContext applicationDbContext)
         {
@@ -56,7 +57,6 @@ namespace CloudHRMS.Controllers
             ViewBag.Msg = error;
             return View();
         }
-
 
         public IActionResult List()
         {
@@ -159,6 +159,7 @@ namespace CloudHRMS.Controllers
 
             return RedirectToAction("List");
         }
+
         public string GetIpAddressOfMachine()
         {
             return HttpContext.Connection.RemoteIpAddress.ToString();
