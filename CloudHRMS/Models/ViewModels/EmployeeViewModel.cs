@@ -2,6 +2,7 @@
 {
     public class EmployeeViewModel
     {
+        public string Id { get; set; }// to Edit/Update and Delete function
         public string No { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }

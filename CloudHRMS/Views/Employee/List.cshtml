@@ -1,0 +1,63 @@
+﻿@model IList<EmployeeViewModel>
+@{
+    if (TempData["Msg"] != null)
+    {
+        if (Convert.ToBoolean(TempData["IsOccurError"]))
+        {
+            <div class="alert alert-success">
+                @TempData["Msg"]
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success">
+                @TempData["Msg"]
+            </div>
+        }
+    }
+}
+<h1>Employee List Information</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employee No</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">DOB</th>
+            <th scope="col">DOE</th>
+            <th scope="col">DOR</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @{
+        int i = 1;
+    }
+    <tbody>
+        @foreach(var employee in Model)
+        {
+            <tr>
+                <th scope="row">@i</th>
+                <td>@employee.No</td>
+                <td>@employee.FullName</td>
+                <td>@employee.Salary</td>
+                <td>@employee.Email</td>
+                <td>@employee.Phone</td>
+                <td>@employee.DOB.ToString("dd-MM-yyyy")</td>
+                <td>@employee.DOE.ToString("dd-MM-yyyy")</td>
+                <td>@(employee.DOR?.ToString("dd-MM-yyyy"))</td>
+                <td>@employee.Gender</td>
+                <td>@employee.Address</td>
+                <td>
+                    <a class="btn btn-success">Edit</a>
+                    <a class="btn btn-danger" href="/Employee/Delete?Id=@employee.Id"  onclick="return confirm('Are you sure to dele this record?');">Delete</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

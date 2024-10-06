@@ -1,0 +1,46 @@
+﻿<form action="/employee/Update" method="post">
+    <div class="mb-3">
+        <i class="text-danger"></i>*
+        <label class="form-label">Employee No:</label>
+        <input type="text" class="form-control" name="No" required placeholder="type employee No">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Full Name:</label>
+        <input type="text" class="form-control" name="FullName" required placeholder="type full name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" name="Email" required placeholder="type email">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Gender</label><br />
+        Female <input type="radio" class="form-check-input" name="Gender" required value="f" checked>
+        Male <input type="radio" class="form-check-input" name="Gender" required value="m">
+        Other <input type="radio" class="form-check-input" name="Gender" required value="o">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">DOB</label>
+        <input type="date" class="form-control" name="DOB" required min="1990-01-01" max="@DateTime.Now.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">DOE</label>
+        <input type="date" class="form-control" name="DOE" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">DOR</label>
+        <input type="date" class="form-control" name="DOR">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-control" name="Phone" required placeholder="type phone">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Salary</label>
+        <input type="number" class="form-control" name="Salary" required placeholder="type salary">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        <textarea class="form-control" placeholder="type address.." name="Address"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
