@@ -119,12 +119,44 @@ namespace CloudHRMS.Controllers
                 DOB = s.DOB,
                 DOE = s.DOE,
                 DOR = s.DOR
-            });
+            }).SingleOrDefault();
+
             return View(employee);
         }
         [HttpPost]
         public IActionResult Update(EmployeeViewModel employeeViewModel)
         {
+            try
+            {
+                //DTO: data transfer object from View Models to Entity
+                EmployeeEntity employeeEntity = new EmployeeEntity()
+                {
+                    Id = employeeViewModel.Id,
+                    No = employeeViewModel.No,
+                    FullName = employeeViewModel.FullName,
+                    DOB = employeeViewModel.DOB,
+                    DOE = employeeViewModel.DOE,
+                    Phone = employeeViewModel.Phone,
+                    Address = employeeViewModel.Address,
+                    Salary = employeeViewModel.Salary,
+                    Gender = employeeViewModel.Gender,
+                    Email = employeeViewModel.Email,
+                    DOR = employeeViewModel.DOR,
+                    UpdatedAt = DateTime.Now,
+                    UpdatedBy = "System",
+                    IpAddress = GetIpAddressOfMachine()
+                };
+                _applicationDbContext.Employees.Update(employeeEntity);//adding the Entity to the context
+                _applicationDbContext.SaveChanges();//actually update the connected database
+                TempData["Msg"] = "Successfully updated the record to the system";
+                TempData["IsOccurError"] = false;
+            }
+            catch (Exception e)
+            {
+                TempData["Msg"] = "Oh,Error occurs when update the record to  the system";
+                TempData["IsOccurError"] = true;
+            }
+
             return RedirectToAction("List");
         }
         public string GetIpAddressOfMachine()

@@ -53,7 +53,7 @@
                 <td>@employee.Gender</td>
                 <td>@employee.Address</td>
                 <td>
-                    <a class="btn btn-success">Edit</a>
+                    <a class="btn btn-success" href="/Employee/Edit?Id=@employee.Id">Edit</a>
                     <a class="btn btn-danger" href="/Employee/Delete?Id=@employee.Id"  onclick="return confirm('Are you sure to dele this record?');">Delete</a>
                 </td>
             </tr>
