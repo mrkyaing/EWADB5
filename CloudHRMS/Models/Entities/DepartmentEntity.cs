@@ -8,6 +8,5 @@ namespace CloudHRMS.Models.Entities
         public string Code { get; set; }
         public string Description { get; set; }
         public string ExtensionPhone { get; set; }
-
     }
 }
