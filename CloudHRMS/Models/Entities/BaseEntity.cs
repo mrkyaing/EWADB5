@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloudHRMS.Utility.NetworkHelper;
+using System.ComponentModel.DataAnnotations;
 
 namespace CloudHRMS.Models.Entities
 {
@@ -11,7 +12,8 @@ namespace CloudHRMS.Models.Entities
         public string CreatedBy { get; set; }//WHO created this recrod
         public DateTime? UpdatedAt { get; set; }//WHEN Updated
         public string? UpdatedBy { get; set; }
-        public string IpAddress { get; set; }
+        public string IpAddress { get; set; } = NetworkHelper.GetMachinePublicIP();
         public bool IsActive { get; set; }
+
     }
 }

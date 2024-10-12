@@ -1,0 +1,58 @@
+﻿@model IList<DepartmentViewModel>
+@{
+	if (TempData["Msg"] != null)
+	{
+		if (Convert.ToBoolean(TempData["IsOccourError"]))
+		{
+
+			<div class="alert alert-danger">
+				@TempData["Msg"]
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-danger">
+				@TempData["Msg"]
+			</div>
+		}
+	}
+}
+
+<h1>Department List Informtion</h1>
+<table class="table table-hover">
+	<thead class="table-dark">
+		<tr>
+			<th scope="col">No</th>
+			<th scope="col">Dapartment Code</th>
+			<th scope="col">Description</th>
+			<th scope="col">ExtensonPhone</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	@{
+		var i = 1;
+	}
+	<tbody>
+		@foreach (var department in Model)
+		{
+			<tr>
+				<td scope="row">@i</td>
+				<td>@department.Code</td>
+				<td>@department.Description</td>
+				<td>@department.ExtensionPhone</td>
+				<td>
+					<a href="/department/Edit?id=@department.Id" class="btn btn-primary">Edit</a>
+					<a href="/department/Delete?id=@department.Id" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+			i++;
+
+
+
+		}
+
+	</tbody>
+
+
+
+</table>

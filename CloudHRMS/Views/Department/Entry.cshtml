@@ -1,0 +1,40 @@
+﻿@using CloudHRMS.Models.ViewModels
+
+@{
+	var error = (ErrorViewModel)ViewBag.Msg;
+	if (error != null)
+	{
+		if (error.IsOccurError)
+		{
+			<i class="text-danger">@error</i>
+		}
+		else
+		{
+			<i class="text-success">@error</i>
+		}
+	}
+}
+
+
+<h1 class="display-1"><i class="fa-solid fa-house-building"></i>Department Entry Form</h1>
+
+<form action="/department/Entry" method="post">
+	<div class="col-5">
+		<div class="mb-3">
+			<label for="Code" class="from-label">Code</label>
+			<input type="text" name="Code" class="form-control" placeholder="Enter Code">
+		</div>
+
+		<div class="mb-3">
+			<label for="Description" class="from-label">Description</label>
+			<input type="text" name="Description" class="form-control" placeholder="Enter Description">
+		</div>
+		<div class="mb-3">
+			<label for="ExtensionPhone" class="from-label">ExtensionPhone</label>
+			<input type="text" name="ExtensionPhone" class="form-control" placeholder="Enter ExtensionPhone">
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+</form>

@@ -1,0 +1,27 @@
+﻿@model IList<PositionViewModel>
+<h1>Position List Information</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">No</th>
+			<th scope="col">Position Code</th>
+			<th scope="col">Description</th>
+			<th scope="col">Level</th>
+		</tr>
+	</thead>
+	@{
+		int i = 1;
+	}
+	<tbody>
+		@foreach (var position in Model)
+		{
+			<tr>
+				<td scope="row">@i</td>
+				<td>@position.Code</td>
+				<td>@position.Description</td>
+				<td>@position.Level</td>
+			</tr>
+			i++;
+		}
+	</tbody>
+</table>

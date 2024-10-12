@@ -1,4 +1,4 @@
-﻿@using CloudHRMS.Models.ViewModels
+﻿@model EmployeeViewModel;
 @{
     var error = (ErrorViewModel)ViewBag.Msg;
     if (error != null)
@@ -52,6 +52,24 @@
     <div class="mb-3">
         <label class="form-label">Phone</label>
         <input type="tel" class="form-control" name="Phone" required placeholder="type phone">
+    </div>
+    <div class="mb-3">
+    <select class="form-select" aria-label="Default select example" name="DepartmentId">
+        <option selected>[Choose One]</option>
+            @foreach(var department in Model.DepartmentsViewModel)
+            {
+                <option value="@department.Id">@department.Code</option>
+            }
+    </select>
+    </div>
+    <div class="mb-3">
+        <select class="form-select" aria-label="Default select example" name="PositionId">
+            <option selected>[Choose One]</option>
+            @foreach (var position in Model.PositionsViewModel)
+            {
+                <option value="@position.Id">@position.Code</option>
+            }
+        </select>
     </div>
     <div class="mb-3">
         <label class="form-label">Salary</label>

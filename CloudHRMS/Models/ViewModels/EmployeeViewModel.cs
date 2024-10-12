@@ -13,5 +13,10 @@
         public decimal Salary { get; set; }
         public DateTime? DOR { get; set; }//Date of Retirement
         public string Address { get; set; }
+
+        public string DepartmentId { get; set; }//for reference logic
+        public string PositionId { get; set; } //for reference logic
+        public IList<PositionViewModel> PositionsViewModel { get; set; }//for UI select BOX binding
+        public IList<DepartmentViewModel> DepartmentsViewModel { get; set; }//for UI select BOX binding
     }
 }

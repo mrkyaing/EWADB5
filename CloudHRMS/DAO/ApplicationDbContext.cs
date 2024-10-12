@@ -12,5 +12,7 @@ namespace CloudHRMS.DAO
         }
         //Define the DbSet Property what we want to use for our System Domains
         public DbSet<EmployeeEntity> Employees { get; set; }
+        public DbSet<PositionEntity> Positions { get; set; }
+        public DbSet<DepartmentEntity> Departments { get; set; }
     }
 }
