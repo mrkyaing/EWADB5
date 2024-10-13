@@ -1,0 +1,45 @@
+﻿@model PositionViewModel
+
+@{
+	if (TempData["Msg"] != null)
+	{
+		if (Convert.ToBoolean(TempData["IsOccourError"]))
+		{
+			<i class="text-danger">
+				@TempData["Msg"]
+			</i>
+		}
+		else
+		{
+			<i class="text-success">
+				@TempData["Msg"]
+			</i>
+		}
+
+	}
+}
+
+<h1>Position Update Form</h1>
+<form action="/position/Update" method="post">
+
+	<div class="mb-3">
+		<input type="hidden" value="@Model.Id" name="Id" />
+	</div>
+	<div class="mb-3">
+		<label for="Code" class="form-label">Position Code</label>
+		<input type="text" value="@Model.Code" name="Code" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<label for="Description" class="form-label">Description</label>
+		<input type="text" value="@Model.Description" name="Description" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<label for="Level" class="form-label">Level</label>
+		<input type="number" value="@Model.Level" name="Level" class="form-control" />
+	</div>
+	<button type="submit" class="btn btn-success">Update</button>
+	<a href="/employee/list" class="btn btn-warning">Cancel</a>
+
+</form>

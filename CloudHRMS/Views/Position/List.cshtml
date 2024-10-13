@@ -11,6 +11,7 @@
 			<th scope="col">Position Code</th>
 			<th scope="col">Description</th>
 			<th scope="col">Level</th>
+			<th scope="col">Actions</th>
 		</tr>
 	</thead>
 	@{
@@ -24,6 +25,10 @@
 				<td>@position.Code</td>
 				<td>@position.Description</td>
 				<td>@position.Level</td>
+				<td>
+					<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
+					<a href="/position/Delete?id=@position.Id" class="btn btn-danger" onclick="return confirm('are you sure to delete this recrod?')">Delete</a>
+				</td>
 			</tr>
 			i++;
 		}

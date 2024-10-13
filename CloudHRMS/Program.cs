@@ -1,4 +1,6 @@
 using CloudHRMS.DAO;
+using CloudHRMS.Repositories;
+using CloudHRMS.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,11 @@ var config = builder.Configuration;//declare the configuration to read connectio
 //add the dbContext that we defined the ApplicationDbContext to get connection string name
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
                             option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
+//Register the Services
+builder.Services.AddScoped<IPositionService, PositionService>();
+//Register the Repository
+builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
