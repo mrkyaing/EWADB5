@@ -15,6 +15,8 @@
         public string Address { get; set; }
 
         public string DepartmentId { get; set; }//for reference logic
+        public string DepartmentInfo { get; set; }//for listing purpose
+        public string PositonInfo { get; set; }//for listing purpose
         public string PositionId { get; set; } //for reference logic
         public IList<PositionViewModel> PositionsViewModel { get; set; }//for UI select BOX binding
         public IList<DepartmentViewModel> DepartmentsViewModel { get; set; }//for UI select BOX binding

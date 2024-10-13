@@ -1,7 +1,11 @@
-﻿@model IList<PositionViewModel>
+﻿<head>
+	<!--for JQuery plugin-->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<PositionViewModel>
 <h1>Position List Information</h1>
-<table class="table">
-	<thead>
+<table class="table table-hover" id="positionTable">
+	<thead class="table-dark">
 		<tr>
 			<th scope="col">No</th>
 			<th scope="col">Position Code</th>
@@ -25,3 +29,8 @@
 		}
 	</tbody>
 </table>
+<script>
+	$(document).ready(function () {
+		$('#positionTable').DataTable();
+	});
+</script>

@@ -1,4 +1,8 @@
-﻿@model IList<EmployeeViewModel>
+﻿<head>
+    <!--for JQuery plugin-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<EmployeeViewModel>
 @{
     if (TempData["Msg"] != null)
     {
@@ -17,12 +21,14 @@
     }
 }
 <h1>Employee List Information</h1>
-<table class="table">
-    <thead>
+<table class="table table-hover" id="employeeTable">
+    <thead class="table-dark">
         <tr>
             <th scope="col">#</th>
             <th scope="col">Employee No</th>
             <th scope="col">Full Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Position</th>
             <th scope="col">Salary</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
@@ -44,6 +50,8 @@
                 <th scope="row">@i</th>
                 <td>@employee.No</td>
                 <td>@employee.FullName</td>
+                 <td>@employee.DepartmentInfo</td>
+                <td>@employee.PositonInfo</td>
                 <td>@employee.Salary</td>
                 <td>@employee.Email</td>
                 <td>@employee.Phone</td>
@@ -61,3 +69,8 @@
         }
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $('#employeeTable').DataTable();
+    });
+</script>

@@ -3,7 +3,6 @@ using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Utility.NetworkHelper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CloudHRMS.Controllers
 {
@@ -55,7 +54,9 @@ namespace CloudHRMS.Controllers
                     DOR = employeeViewModel.DOR,
                     CreatedAt = DateTime.Now,
                     CreatedBy = "System",
-                    IsActive = true
+                    IsActive = true,
+                    DepartmentId = employeeViewModel.DepartmentId,
+                    PositionId = employeeViewModel.PositionId
                 };
                 _applicationDbContext.Employees.Add(employeeEntity);//adding the Entity to the context
                 _applicationDbContext.SaveChanges();//actually save the connected database
@@ -67,26 +68,36 @@ namespace CloudHRMS.Controllers
                 error.IsOccurError = true;
             }
             ViewBag.Msg = error;
-            return View();
+            return RedirectToAction("List");
         }
 
         public IActionResult List()
         {
             //DTO : Entity to View Model data exchange
-            IList<EmployeeViewModel> employees = _applicationDbContext.Employees.Where(w => w.IsActive).Select(s => new EmployeeViewModel
-            {
-                Id = s.Id,
-                No = s.No,
-                FullName = s.FullName,
-                Email = s.Email,
-                Phone = s.Phone,
-                Address = s.Address,
-                Salary = s.Salary,
-                Gender = s.Gender,
-                DOB = s.DOB,
-                DOE = s.DOE,
-                DOR = s.DOR
-            }).ToList();
+            IList<EmployeeViewModel> employees = (from e in _applicationDbContext.Employees
+                                                  join d in _applicationDbContext.Departments
+                                                  on e.DepartmentId equals d.Id
+                                                  join p in _applicationDbContext.Positions
+                                                  on e.PositionId equals p.Id
+                                                  where e.IsActive && p.IsActive && d.IsActive
+                                                  select new EmployeeViewModel
+                                                  {
+                                                      Id = e.Id,
+                                                      No = e.No,
+                                                      FullName = e.FullName,
+                                                      Email = e.Email,
+                                                      Phone = e.Phone,
+                                                      Address = e.Address,
+                                                      Salary = e.Salary,
+                                                      Gender = e.Gender,
+                                                      DOB = e.DOB,
+                                                      DOE = e.DOE,
+                                                      DOR = e.DOR,
+                                                      DepartmentId = e.DepartmentId,//CURD Process
+                                                      PositionId = e.PositionId,//CURD Process
+                                                      DepartmentInfo = d.Description,//to display UI List
+                                                      PositonInfo = p.Description//to display UI List
+                                                  }).ToList();
 
             return View(employees);//pass the viewModel object to the related view
         }
@@ -118,7 +129,7 @@ namespace CloudHRMS.Controllers
         public IActionResult Edit(string Id)
         {
 
-            var employee = _applicationDbContext.Employees.Where(w => w.Id == Id).Select(s => new EmployeeViewModel
+            var employeeViewModel = _applicationDbContext.Employees.Where(w => w.Id == Id).Select(s => new EmployeeViewModel
             {
                 Id = s.Id,
                 No = s.No,
@@ -130,10 +141,21 @@ namespace CloudHRMS.Controllers
                 Gender = s.Gender,
                 DOB = s.DOB,
                 DOE = s.DOE,
-                DOR = s.DOR
+                DOR = s.DOR,
+                DepartmentId = s.DepartmentId,
+                PositionId = s.PositionId
             }).SingleOrDefault();
-
-            return View(employee);
+            employeeViewModel.DepartmentsViewModel = _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
+            {
+                Id = s.Id,
+                Code = s.Code
+            }).ToList();
+            employeeViewModel.PositionsViewModel = _applicationDbContext.Positions.Where(w => w.IsActive).Select(s => new PositionViewModel
+            {
+                Id = s.Id,
+                Code = s.Code
+            }).ToList();
+            return View(employeeViewModel);
         }
         [HttpPost]
         public IActionResult Update(EmployeeViewModel employeeViewModel)
@@ -155,6 +177,8 @@ namespace CloudHRMS.Controllers
                 existingEmployeeEntity.UpdatedAt = DateTime.Now;
                 existingEmployeeEntity.UpdatedBy = "System";
                 existingEmployeeEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
+                existingEmployeeEntity.DepartmentId = employeeViewModel.DepartmentId;
+                existingEmployeeEntity.PositionId = employeeViewModel.PositionId;
                 _applicationDbContext.Employees.Update(existingEmployeeEntity);//adding the Entity to the context
                 _applicationDbContext.SaveChanges();//actually update the connected database
                 TempData["Msg"] = "Successfully updated the record to the system";

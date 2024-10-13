@@ -1,4 +1,8 @@
-﻿@model IList<DepartmentViewModel>
+﻿<head>
+	<!--for JQuery plugin-->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<DepartmentViewModel>
 @{
 	if (TempData["Msg"] != null)
 	{
@@ -17,13 +21,12 @@
 		}
 	}
 }
-
-<h1>Department List Informtion</h1>
-<table class="table table-hover">
+<h1>Department List Infromation</h1>
+<table class="table table-hover" id="departmentTable">
 	<thead class="table-dark">
 		<tr>
 			<th scope="col">No</th>
-			<th scope="col">Dapartment Code</th>
+			<th scope="col">Department Code</th>
 			<th scope="col">Description</th>
 			<th scope="col">ExtensonPhone</th>
 			<th scope="col">Action</th>
@@ -46,13 +49,11 @@
 				</td>
 			</tr>
 			i++;
-
-
-
 		}
-
 	</tbody>
-
-
-
 </table>
+<script>
+	$(document).ready(function () {
+		$('#departmentTable').DataTable();
+	});
+</script>
