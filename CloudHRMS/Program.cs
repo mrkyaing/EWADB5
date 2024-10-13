@@ -11,10 +11,10 @@ var config = builder.Configuration;//declare the configuration to read connectio
 
 //add the dbContext that we defined the ApplicationDbContext to get connection string name
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
-                            option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
-//Register the Services
+							option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
+//Register the Service Of Position Service
 builder.Services.AddScoped<IPositionService, PositionService>();
-//Register the Repository
+//Register the Repository of Position Repository
 builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
 
 var app = builder.Build();
@@ -22,9 +22,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -35,7 +35,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
