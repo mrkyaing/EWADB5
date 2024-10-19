@@ -13,7 +13,7 @@ namespace CloudHRMS.Models.Entities
         public DateTime? UpdatedAt { get; set; }//WHEN Updated
         public string? UpdatedBy { get; set; }
         public string IpAddress { get; set; } = NetworkHelper.GetMachinePublicIP();
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }=true;
 
     }
 }
