@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,10 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 //Register for Identity UIs
 builder.Services.AddRazorPages();
 //Register for Identity dbContext for related Identity User and Roles.
-builder.Services.AddIdentity<IdentityRole, IdentityUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultUI()
-    .AddDefaultTokenProviders();
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Register the Service Of Position Service
 builder.Services.AddScoped<IPositionService, PositionService>();
