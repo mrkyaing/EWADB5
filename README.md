@@ -7,8 +7,10 @@
 - Employee Management 
 - Attendance Management
 - Attendance Policy Management
-- Shift Management and Shift Assignment 
-- Payroll 
+- Shift Management and Shift Assignment
+- Daily Attendacne
+- Attendance DayEnd Process
+- Payroll Process & Payroll History
 - Reportings
 - Dashboard for each role (Admin, HR, Employee User, etc)
 
