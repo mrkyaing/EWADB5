@@ -1,5 +1,5 @@
 # Cloud HRMS
-- Database URL : https://docs.google.com/spreadsheets/d/1pv3IBIM7SlmtkHr_8huHTX2CiQJcsveraXFjC8bj1v8/edit?usp=sharing
+- Database URL: https://docs.google.com/spreadsheets/d/1pv3IBIM7SlmtkHr_8huHTX2CiQJcsveraXFjC8bj1v8/edit?usp=sharing
 # Functional Lists
 - User/Role Management (Authentication vs. Authorization) according to roles.
 - Position Management
@@ -8,7 +8,7 @@
 - Attendance Management
 - Attendance Policy Management
 - Shift Management and Shift Assignment
-- Daily Attendacne
+- Daily Attendance
 - Attendance DayEnd Process
 - Payroll Process & Payroll History
 - Reportings
