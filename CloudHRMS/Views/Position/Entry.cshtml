@@ -1,28 +1,5 @@
-﻿@using CloudHRMS.Models.ViewModels
-@{
-	var error = (ErrorViewModel)ViewBag.Msg;
-	if (error != null)
-	{
-		if (error.IsOccurError)
-		{
-			<i class="text-danger">
-				@error.Message
-			</i>
-		}
-		else
-		{
-			<i class="text-success">
-				@error.Message
-			</i>
-		}
-
-	}
-
-}
-
-<h1><i class="fa-duotone fa-solid fa-line-height"></i>Position Entry</h1>
-
-<form action="/Position/Entry" method="post">
+﻿<h1><i class="fa-duotone fa-solid fa-line-height"></i>Position Entry</h1>
+<form id="positionForm" method="post">
 	<div class="col-5">
 		<div class="mb-3">
 			<label for="Code" class="form-label">Code</label>
@@ -37,7 +14,8 @@
 			<input type="number" class="form-control" name="Level" placeholder="Enter Level" required>
 		</div>
 	</div>
-
-	<button class="btn btn-success" value="save" type="submit">Save</button>
+	<button class="btn btn-success" id="btnSave" value="save" type="button">Save</button>
 	<a href="/position/list" class="btn btn-warning">List</a>
 </form>
+<!-- Include the JavaScript file -->
+<script src="~/js/position.js"></script>
