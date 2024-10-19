@@ -1,0 +1,58 @@
+﻿﻿@{
+    ViewData["Title"] = "DailyAttendance";
+}
+<h3>Daily Attendance Entry</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/dailyattendance/entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">Attendance Date:</label>
+        <input type="date" class="form-control" name="AttendanceDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">In Time:</label>
+        <input type="time" class="form-control" name="InTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Out Time:</label>
+        <input type="time" class="form-control" name="OutTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            <option selected>Open this select menu</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.Id">@employee.Code</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Department</label>
+        <select class="form-select" name="DepartmentId">
+            <option selected>Open this select menu</option>
+            @foreach (var department in ViewBag.Departments)
+            {
+                <option value="@department.Id">@department.Code</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Entry</button>
+    <a href="/dailyattendance/list" class="btn btn-outline-primary">List</a>
+</form>

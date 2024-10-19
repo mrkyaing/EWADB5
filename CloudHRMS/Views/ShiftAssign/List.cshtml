@@ -1,0 +1,67 @@
+﻿@model IList<ShiftAssignViewModel>
+
+<h3>ShiftAssign List Information</h3>
+<a href="/shiftassign/entry" class="btn btn-outline-primary">Entry</a>
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["info"]
+    </div>
+}
+<table class="table table-bordered table-striped" id="ShiftAssignTable">
+    <thead>
+        @{
+            int i = 1;
+        }
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Shift</th>
+            <th scope="col">From Date</th>
+            <th scope="col">To Date</th>
+            @if (User.IsInRole("HR"))
+            {
+                <th scope="col">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.EmployeeInfo</td>
+                    <td>@item.ShiftInfo</td>
+                    <td>@item.FromDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.ToDate.ToString("yyyy-MM-dd")</td>
+                    @if (User.IsInRole("HR"))
+                    {
+                        <td>
+                            <a href="/shiftassign/edit?id=@item.Id" class="btn btn-success">EDIT</a>
+                        <a href="/shiftassign/delete?id=@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure to delete this recrod?');">DELETE</a>
+                    </td>
+                    }
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                There is no data!!
+            </div>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ShiftAssignTable").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#ShiftAssignTable_wrapper .col-md-6:eq(0)');
+    });
+</script>

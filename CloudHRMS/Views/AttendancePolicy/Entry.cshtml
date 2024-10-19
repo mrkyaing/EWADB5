@@ -1,0 +1,46 @@
+﻿﻿@{
+    ViewData["Title"] = "AttendancePolicy";
+}
+<h3>Attendance Policy Entry</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/attendancepolicy/entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" name="Name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Number of Late Time:</label>
+        <input type="number" class="form-control" name="NumberOfLateTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Number Of Early Out Time:</label>
+        <input type="number" class="form-control" name="NumberOfEarlyOutTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Deduction In Amount:</label>
+        <input type="text" class="form-control" name="DeductionInAmount" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Deduction In Day:</label>
+        <input type="number" class="form-control" name="DeductionInDay" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Entry</button>
+    <a href="/attendancepolicy/list" class="btn btn-outline-primary">List</a>
+</form>

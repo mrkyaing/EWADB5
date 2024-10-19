@@ -1,0 +1,57 @@
+﻿﻿
+@model AttendancePolicyViewModel
+@{
+    ViewData["Title"] = "AttendancePolicy";
+}
+<h3>Attendance Policy Edit</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/attendancepolicy/update" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" /> <!--for update process carrying Id-->
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" name="Name" required value="@Model.Name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Number of Late Time:</label>
+        <input type="number" class="form-control" name="NumberOfLateTime" required value="@Model.NumberOfLateTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Number of Early Out Time:</label>
+        <input type="number" class="form-control" name="NumberOfEarlyOutTime" required value="@Model.NumberOfEarlyOutTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Deduction In Amount:</label>
+        <input type="text" class="form-control" name="DeductionInAmount" required value="@Model.DeductionInAmount">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Deduction In Day:</label>
+        <input type="number" class="form-control" name="DeductionInDay" required value="@Model.DeductionInDay">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Created On</label>
+        <input type="text" class="form-control" required value="@Model.CreatedOn" readonly name="CreatedOn">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Modified On</label>
+        <input type="text" class="form-control" required value="@Model.UpdatedOn" readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/attendancepolicy/list" class="btn btn-outline-primary">List</a>
+</form>

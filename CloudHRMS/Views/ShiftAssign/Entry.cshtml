@@ -1,0 +1,56 @@
+﻿﻿﻿@{
+    ViewData["Title"] = "ShiftAssign";
+}
+<h3>ShiftAssign Entry</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/shiftassign/entry" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            <option selected>Select Employee</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.Id">@employee.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Shift</label>
+        <select class="form-select" name="ShiftId">
+            <option selected>Select Shift</option>
+            @foreach (var shift in ViewBag.Shifts)
+            {
+                <option value="@shift.Id">@shift.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">From Date</label>
+        <input type="date" class="form-control" name="FromDate" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">To Date</label>
+        <input type="date" class="form-control" name="ToDate" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Entry</button>
+    <a href="/shiftassign/list" class="btn btn-outline-primary">List</a>
+</form>

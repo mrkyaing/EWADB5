@@ -1,0 +1,71 @@
+﻿﻿
+@model IList<ShiftViewModel>
+<h3>Shift List Information</h3>
+<a href="/shift/entry" class="btn btn-outline-primary">Entry</a>
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["info"]
+    </div>
+}
+<table class="table table-bordered table-striped" id="ShiftTable">
+    <thead>
+        @{
+            int i = 1;
+        }
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">In Time</th>
+            <th scope="col">Out Time</th>
+            <th scope="col">Late After</th>
+            <th scope="col">Early Out Before</th>
+            <th scope="col">Attendance Policy</th>
+            @if (User.IsInRole("HR"))
+            {
+                <th scope="col">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.Name</td>
+                    <td>@item.InTime</td>
+                    <td>@item.OutTime</td>
+                    <td>@item.LateAfter</td>
+                    <td>@item.EarlyOutBefore</td>
+                    <td>@item.AttendancePolicyInfo</td>
+                    @if (User.IsInRole("HR"))
+                    {
+                        <td>
+                            <a href="/shift/edit?id=@item.Id" class="btn btn-success">EDIT</a>
+                        <a href="/shift/delete?id=@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure to delete this recrod?');">DELETE</a>
+                    </td>
+                    }
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                There is no data!!
+            </div>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ShiftTable").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#ShiftTable_wrapper .col-md-6:eq(0)');
+    });
+</script>

@@ -1,0 +1,72 @@
+﻿@model ShiftViewModel
+
+﻿@{
+    ViewData["Title"] = "Shift";
+}
+<h3>Shift Edit</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/shift/update" method="post">
+    <div class="mb-3">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name" required value="@Model.Name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">In Time</label>
+        <input type="time" class="form-control" name="InTime" required value="@Model.InTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Out Time</label>
+        <input type="time" class="form-control" name="OutTime" required value="@Model.OutTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Late After</label>
+        <input type="time" class="form-control" name="LateAfter" required value="@Model.LateAfter">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Early Out Before</label>
+        <input type="time" class="form-control" name="EarlyOutBefore" required value="@Model.EarlyOutBefore">
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">AttendancePolicy</label>
+        <select class="form-select" name="AttendancePolicyId">
+
+            @foreach (var attendancepolicy in ViewBag.AttendancePolicies)
+            {
+                @if (attendancepolicy.Id == Model.AttendancePolicyId)
+                {
+                    <option value="@attendancepolicy.Id" selected>@attendancepolicy.Name</option>
+                }
+                else
+                {
+                    <option value="@attendancepolicy.Id">@attendancepolicy.Name</option>
+                }
+
+            }
+        </select>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/shift/list" class="btn btn-outline-primary">List</a>
+</form>

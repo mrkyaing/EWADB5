@@ -1,0 +1,83 @@
+﻿﻿
+@model DailyAttendanceViewModel
+@{
+    ViewData["Title"] = "DailyAttendance";
+}
+<h3>Daily Attendance Edit</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/dailyattendance/update" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" /> <!--for update process carrying Id-->
+    <div class="mb-3">
+        <label class="form-label">Attendance Date:</label>
+        <input type="date" class="form-control" name="AttendanceDate" required value="@Model.AttendanceDate">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">In Time:</label>
+        <input type="time" class="form-control" name="InTime" required value="@Model.InTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Out Time:</label>
+        <input type="time" class="form-control" name="OutTime" required value="@Model.OutTime">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            <option selected>Open this select menu</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                if (employee.Id == Model.EmployeeId)
+                {
+                    <option value="@employee.Id">@employee.Code</option>
+                }
+                else
+                {
+                    <option value="@employee.Id">@employee.Code</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Department</label>
+        <select class="form-select" name="DepartmentId">
+            <option selected>Open this selct menu</option>
+            @foreach (var department in ViewBag.Departments)
+            {
+                if (department.Id == Model.DepartmentId)
+                {
+                    <option value="@department.Id">@department.Code</option>
+                }
+                else
+                {
+                    <option value="@department.Id">@department.Code</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Created On</label>
+        <input type="text" class="form-control" required value="@Model.CreatedOn" readonly name="CreatedOn">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Modified On</label>
+        <input type="text" class="form-control" required value="@Model.UpdatedOn" readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/dailyattendance/list" class="btn btn-outline-primary">List</a>
+</form>

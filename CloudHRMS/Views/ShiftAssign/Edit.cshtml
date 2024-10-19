@@ -1,0 +1,74 @@
+﻿﻿
+@model ShiftAssignViewModel
+
+@{
+    ViewData["Title"] = "ShiftAssign";
+}
+<h3>ShiftAssign Entry</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/shiftassign/update" method="post">
+
+    <div class="mb-3">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <label class="form-label">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            @foreach (var employee in ViewBag.Employees)
+            {
+                @if (employee.Id == Model.EmployeeId)
+                {
+                    <option value="@employee.Id" selected>@employee.Name</option>
+                }
+                else
+                {
+                    <option value="@employee.Id">@employee.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Shift</label>
+        <select class="form-select" name="ShiftId">
+
+            @foreach (var shift in ViewBag.Shifts)
+            {
+                if(shift.Id == Model.ShiftId)
+                {
+                    <option value="@shift.Id" selected>@shift.Name</option>
+                }
+                else
+                {
+                    <option value="@shift.Id">@shift.Name</option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">FromDate</label>
+        <input type="date" class="form-control" name="FromDate" required value="@Model.FromDate.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">ToDate</label>
+        <input type="date" class="form-control" name="ToDate" required value="@Model.ToDate.ToString("yyyy-MM-dd")">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/shiftassign/list" class="btn btn-outline-primary">List</a>
+</form>

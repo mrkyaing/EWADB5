@@ -1,0 +1,61 @@
+﻿﻿﻿@{
+    ViewData["Title"] = "Shift";
+}
+<h3>Shift Entry</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["Status"]))
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/shift/entry" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">In Time</label>
+        <input type="time" class="form-control" name="InTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Out Time</label>
+        <input type="time" class="form-control" name="OutTime" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Late After</label>
+        <input type="time" class="form-control" name="LateAfter" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Early Out Before</label>
+        <input type="time" class="form-control" name="EarlyOutBefore" required>
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">AttendancePolicy</label>
+        <select class="form-select" name="AttendancePolicyId">
+            <option selected>Select AttendancePolicy</option>
+            @foreach (var attendancepolicy in ViewBag.AttendancePolicies)
+            {
+                <option value="@attendancepolicy.Id">@attendancepolicy.Name</option>
+            }
+        </select>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Entry</button>
+    <a href="/shift/list" class="btn btn-outline-primary">List</a>
+</form>
