@@ -4,6 +4,7 @@
 </head>
 @model IList<PositionViewModel>
 <h1>Position List Information</h1>
+<a href="/position/entry" class="btn btn-success">Entry</a>
 <table class="table table-hover" id="positionTable">
 	<thead class="table-dark">
 		<tr>
@@ -27,13 +28,15 @@
 				<td>@position.Level</td>
 				<td>
 					<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
-					<a href="/position/Delete?id=@position.Id" class="btn btn-danger" onclick="return confirm('are you sure to delete this recrod?')">Delete</a>
+					<a href="javascript:void(0)" class="btn btn-danger" data-id="@position.Id" data-description="@position.Description">Delete</a>
 				</td>
 			</tr>
 			i++;
 		}
 	</tbody>
 </table>
+<!-- Include the JavaScript file -->
+<script src="~/js/position.js"></script>
 <script>
 	$(document).ready(function () {
 		$('#positionTable').DataTable();
