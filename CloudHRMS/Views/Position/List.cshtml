@@ -1,6 +1,10 @@
 ﻿@model IList<PositionViewModel>
 <h1>Position List Information</h1>
-<a href="/position/entry" class="btn btn-success">Entry</a>
+@if (User.IsInRole("HR"))
+{
+	<a href="/position/entry" class="btn btn-success">Entry</a>
+}
+
 <table class="table table-hover" id="positionTable">
 	<thead class="table-dark">
 		<tr>
@@ -8,7 +12,10 @@
 			<th scope="col">Position Code</th>
 			<th scope="col">Description</th>
 			<th scope="col">Level</th>
-			<th scope="col">Actions</th>
+			@if (User.IsInRole("HR"))
+			{
+				<th scope="col">Actions</th>
+			}
 		</tr>
 	</thead>
 	@{
@@ -22,10 +29,13 @@
 				<td>@position.Code</td>
 				<td>@position.Description</td>
 				<td>@position.Level</td>
-				<td>
-					<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
+				@if (User.IsInRole("HR"))
+				{
+					<td>
+						<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
 					<a href="javascript:void(0)" class="btn btn-danger" data-id="@position.Id" data-description="@position.Description">Delete</a>
 				</td>
+				}
 			</tr>
 			i++;
 		}

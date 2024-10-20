@@ -12,11 +12,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServe
 //Register for Identity UIs
 builder.Services.AddRazorPages();
 //Register for Identity dbContext for related Identity User and Roles.
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 //Register the Service Of Position Service
 builder.Services.AddScoped<IPositionService, PositionService>();
 //Register the Repository of Position Repository
 builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
+//Register the user service to be use.
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

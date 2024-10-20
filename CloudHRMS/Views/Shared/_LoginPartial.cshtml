@@ -18,15 +18,12 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-white" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link text-white" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
 </ul>
-<script>
-    document.getElementById('logout').addEventListener('click', function (e) {
+@* <script>
+    $("#logout").on('click', function (e) {
         e.preventDefault(); // Prevent form submission
 
         Swal.fire({
@@ -44,3 +41,4 @@ else
         });
     });
 </script>
+ *@

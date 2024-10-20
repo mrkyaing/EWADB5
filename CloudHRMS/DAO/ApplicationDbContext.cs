@@ -1,10 +1,11 @@
 ﻿using CloudHRMS.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudHRMS.DAO
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         //Constructor changing to pass object to the parent's class constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

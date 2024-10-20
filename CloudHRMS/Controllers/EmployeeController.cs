@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Services;
 using CloudHRMS.Utility.NetworkHelper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,14 @@ namespace CloudHRMS.Controllers
     {
         //declare the private global variable for ApplicationDbContext
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IUserService _userService;
         ErrorViewModel error = new ErrorViewModel();
 
         //Constructor Dependency injection in here to call the ApplicationDbContext
-        public EmployeeController(ApplicationDbContext applicationDbContext)
+        public EmployeeController(ApplicationDbContext applicationDbContext, IUserService userService)
         {
             _applicationDbContext = applicationDbContext;
+            _userService = userService;
         }
         public IActionResult Entry()
         {
@@ -34,10 +37,18 @@ namespace CloudHRMS.Controllers
             return View(employeeViewModel);//passing the employee viewModel to the related View
         }
         [HttpPost]
-        public IActionResult Entry(EmployeeViewModel employeeViewModel)
+        public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
         {
             try
             {
+
+                string userId = await _userService.CreateUser(employeeViewModel.FullName, employeeViewModel.Email);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    error.Message = "Oh,Error occur when creating user for employee.";
+                    error.IsOccurError = true;
+                    return RedirectToAction("List");
+                }
                 //DTO: data transfer object from View Models to Entity
                 EmployeeEntity employeeEntity = new EmployeeEntity()
                 {
@@ -56,7 +67,8 @@ namespace CloudHRMS.Controllers
                     CreatedBy = "System",
                     IsActive = true,
                     DepartmentId = employeeViewModel.DepartmentId,
-                    PositionId = employeeViewModel.PositionId
+                    PositionId = employeeViewModel.PositionId,
+                    UserId = userId
                 };
                 _applicationDbContext.Employees.Add(employeeEntity);//adding the Entity to the context
                 _applicationDbContext.SaveChanges();//actually save the connected database
