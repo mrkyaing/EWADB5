@@ -1,24 +1,4 @@
 ﻿@model PositionViewModel
-
-@{
-	if (TempData["Msg"] != null)
-	{
-		if (Convert.ToBoolean(TempData["IsOccourError"]))
-		{
-			<i class="text-danger">
-				@TempData["Msg"]
-			</i>
-		}
-		else
-		{
-			<i class="text-success">
-				@TempData["Msg"]
-			</i>
-		}
-
-	}
-}
-
 <h1>Position Update</h1>
 <form action="/position/Update" method="post">
 

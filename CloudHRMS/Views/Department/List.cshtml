@@ -11,7 +11,7 @@
 		}
 		else
 		{
-			<div class="alert alert-danger">
+			<div class="alert alert-success">
 				@TempData["Msg"]
 			</div>
 		}
@@ -41,7 +41,7 @@
 				<td>@department.ExtensionPhone</td>
 				<td>
 					<a href="/department/Edit?id=@department.Id" class="btn btn-primary">Edit</a>
-					<a href="/department/Delete?id=@department.Id" class="btn btn-danger">Delete</a>
+					<a href="/department/Delete?id=@department.Id" onclick="return confirm('Are you sure to dele this record?');" class="btn btn-danger">Delete</a>
 				</td>
 			</tr>
 			i++;

@@ -2,22 +2,10 @@
 @{
 	ViewData["Title"] = "Department Edit";
 }
-@{
-	var error = (ErrorViewModel)ViewBag.Msg;
-	if (error != null)
-	{
-		if (error.IsOccurError)
-		{
-			<i class="text-danger">@error</i>
-		}
-		else
-		{
-			<i class="text-success">@error</i>
-		}
-	}
-}
+
 <h1 class="display-1"><i class="fa-solid fa-house-building"></i>Edit</h1>
 <form action="/department/Update" method="post">
+	<input type="hidden" name="Id" value="@Model.Id" /> <!--for update process carrying Id-->
 	<div class="col-5">
 		<div class="mb-3">
 			<label for="Code" class="from-label">Code</label>
@@ -33,6 +21,6 @@
 			<input type="text" name="ExtensionPhone" class="form-control" placeholder="Enter ExtensionPhone" value="@Model.ExtensionPhone">
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary mb-3">Update</button>
+	<button type="submit" class="btn btn-primary">Update</button>
 	<a href="/department/list" class="btn btn-warning">List</a>
 </form>

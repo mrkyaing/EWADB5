@@ -2,24 +2,7 @@
     ViewData["Title"] = "Daily Attendance";
 }
 <h3>Daily Attendance Entry</h3>
-@{
-    var info = ViewData["Info"];
-}
-@if (info != null)
-{
-    if (Convert.ToBoolean(ViewData["Status"]))
-    {
-        <div class="alert alert-success" role="alert">
-            @info
-        </div>
-    }
-    else
-    {
-        <div class="alert alert-danger" role="alert">
-            @info
-        </div>
-    }
-}
+
 <form action="/dailyattendance/entry" method="post">
     <div class="mb-3">
         <label class="form-label">Attendance Date:</label>

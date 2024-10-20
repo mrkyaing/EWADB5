@@ -1,12 +1,25 @@
 ﻿﻿
 @model IList<AttendancePolicyViewModel>
-<h3>Attendace Policy List Information</h3>
-<a href="/attendancepolicy/entry" class="btn btn-outline-primary">Entry</a>
-@if(TempData["info"]!=null){
-<div class="alert alert-success" role="alert">
-    @TempData["info"]
-</div>
+<h3>Attendance Policy List Information</h3>
+@{
+    if (TempData["Msg"] != null)
+    {
+        if (Convert.ToBoolean(TempData["IsOccourError"]))
+        {
+
+                        <div class="alert alert-danger">
+                @TempData["Msg"]
+                        </div>
+        }
+        else
+        {
+            <div class="alert alert-success">
+                @TempData["Msg"]
+                        </div>
+        }
+    }
 }
+<a href="/attendancepolicy/entry" class="btn btn-outline-primary">Entry</a>
 <table class="table table-hover" id="AttendancePolicyTable">
     <thead class="table-dark">
         @{

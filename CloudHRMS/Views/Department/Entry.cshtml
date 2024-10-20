@@ -1,18 +1,4 @@
-﻿@{
-	var error = (ErrorViewModel)ViewBag.Msg;
-	if (error != null)
-	{
-		if (error.IsOccurError)
-		{
-			<i class="text-danger">@error</i>
-		}
-		else
-		{
-			<i class="text-success">@error</i>
-		}
-	}
-}
-<h1 class="display-1"><i class="fa-solid fa-house-building"></i>Department Entry</h1>
+﻿<h1 class="display-1"><i class="fa-solid fa-house-building"></i>Department Entry</h1>
 <form action="/department/Entry" method="post">
 	<div class="col-5">
 		<div class="mb-3">

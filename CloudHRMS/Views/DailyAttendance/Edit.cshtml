@@ -4,24 +4,7 @@
     ViewData["Title"] = "DailyAttendance";
 }
 <h3>Daily Attendance Edit</h3>
-@{
-    var info = ViewData["Info"];
-}
-@if (info != null)
-{
-    if (Convert.ToBoolean(ViewData["Status"]))
-    {
-        <div class="alert alert-success" role="alert">
-            @info
-        </div>
-    }
-    else
-    {
-        <div class="alert alert-danger" role="alert">
-            @info
-        </div>
-    }
-}
+
 <form action="/dailyattendance/update" method="post">
     <input type="hidden" name="Id" value="@Model.Id" /> <!--for update process carrying Id-->
     <div class="mb-3">
