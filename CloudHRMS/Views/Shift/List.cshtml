@@ -8,8 +8,20 @@
         @TempData["info"]
     </div>
 }
-<table class="table table-bordered table-striped" id="ShiftTable">
-    <thead>
+
+        @if (Model.Count  == 0)
+        {
+
+    <div class="alert alert-warning" role="alert">
+        <label>There is no data!!</label>
+    </div>
+}
+else
+{
+
+
+<table class="table table-hover" id="ShiftTable">
+    <thead class="table-dark">
         @{
             int i = 1;
         }
@@ -28,8 +40,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Count > 0)
-        {
+
             @foreach (var item in Model)
             {
                 <tr>
@@ -50,15 +61,9 @@
                 </tr>
                 i++;
             }
-        }
-        else
-        {
-            <div class="alert alert-danger" role="alert">
-                There is no data!!
-            </div>
-        }
     </tbody>
 </table>
+}
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ShiftTable").DataTable({

@@ -2,14 +2,19 @@
 @model IList<DailyAttendanceViewModel>
 <h3>Daily Attendance Information</h3>
 <a href="/dailyattendance/entry" class="btn btn-outline-primary">Entry</a>
-@if (TempData["info"] != null)
-{
+@if (TempData["info"] != null){
     <div class="alert alert-success" role="alert">
         @TempData["info"]
     </div>
 }
-<table class="table table-bordered table-striped" id="DailyAttendanceTable">
-    <thead>
+@if (Model.Count ==0){
+<div class="alert alert-danger" role="alert">
+    There is no data!!
+    </div>
+}
+else{
+<table class="table table-hover" id="DailyAttendanceTable">
+    <thead class="table-dark">
         @{
             int i = 1;
         }
@@ -27,8 +32,6 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Count > 0)
-        {
             @foreach (var item in Model)
             {
                 <tr>
@@ -49,14 +52,9 @@
                 i++;
             }
         }
-        else
-        {
-            <div class="alert alert-danger" role="alert">
-                There is no data!!
-            </div>
-        }
     </tbody>
 </table>
+}
 <script type="text/javascript">
     $(document).ready(function () {
         $("#DailyAttendanceTable").DataTable({

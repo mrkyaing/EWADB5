@@ -1,6 +1,4 @@
-﻿@using CloudHRMS.Models.ViewModels
-
-@{
+﻿@{
 	var error = (ErrorViewModel)ViewBag.Msg;
 	if (error != null)
 	{
@@ -14,17 +12,13 @@
 		}
 	}
 }
-
-
-<h1 class="display-1"><i class="fa-solid fa-house-building"></i>Department Entry Form</h1>
-
+<h1 class="display-1"><i class="fa-solid fa-house-building"></i>Department Entry</h1>
 <form action="/department/Entry" method="post">
 	<div class="col-5">
 		<div class="mb-3">
 			<label for="Code" class="from-label">Code</label>
-			<input type="text" name="Code" class="form-control" placeholder="Enter Code">
+			<input type="text" name="Code" class="form-control" placeholder="Enter Code" required>
 		</div>
-
 		<div class="mb-3">
 			<label for="Description" class="from-label">Description</label>
 			<input type="text" name="Description" class="form-control" placeholder="Enter Description">
@@ -34,7 +28,6 @@
 			<input type="text" name="ExtensionPhone" class="form-control" placeholder="Enter ExtensionPhone">
 		</div>
 	</div>
-
-	<button type="submit" class="btn btn-primary mb-3">Save</button>
-
+	<button type="submit" class="btn btn-primary">Save</button>
+	<a href="/department/list" class="btn btn-warning">List</a>
 </form>

@@ -25,17 +25,17 @@
     <div class="mb-3">
         <label class="form-label">Employee</label>
         <select class="form-select" name="EmployeeId">
-            <option selected>Select Employee</option>
+            <option selected>[Select Employee]</option>
             @foreach (var employee in ViewBag.Employees)
             {
-                <option value="@employee.Id">@employee.Name</option>
+                <option value="@employee.Id">@employee.FullName</option>
             }
         </select>
     </div>
     <div class="mb-3">
         <label class="form-label">Shift</label>
         <select class="form-select" name="ShiftId">
-            <option selected>Select Shift</option>
+            <option selected>[Select Shift]</option>
             @foreach (var shift in ViewBag.Shifts)
             {
                 <option value="@shift.Id">@shift.Name</option>

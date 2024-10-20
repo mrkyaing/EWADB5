@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Utility.NetworkHelper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -40,8 +41,6 @@ namespace CloudHRMS.Controllers
 			   Name = s.Name,
 		   }).ToList();
 			ViewBag.Shifts = shifts;    //passing the all of position to the UI
-
-
 		}
 
 		[HttpPost]
@@ -57,6 +56,7 @@ namespace CloudHRMS.Controllers
 					ShiftId = ui.ShiftId,
 					FromDate = ui.FromDate,
 					ToDate = ui.ToDate,
+					CreatedBy = "System"
 
 				};
 				_dbContext.ShiftAssigns.Add(shiftAssignEntity);
@@ -117,14 +117,15 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				ShiftAssignEntity shiftAssignEntity = new ShiftAssignEntity()
+				ShiftAssignEntity shiftAssignEntity = _dbContext.ShiftAssigns.Find(ui.Id);
 				{
-					Id = ui.Id,
-					EmployeeId = ui.EmployeeId,
-					ShiftId = ui.ShiftId,
-					FromDate = ui.FromDate,
-					ToDate = ui.ToDate,
-
+					shiftAssignEntity.EmployeeId = ui.EmployeeId;
+					shiftAssignEntity.ShiftId = ui.ShiftId;
+					shiftAssignEntity.FromDate = ui.FromDate;
+					shiftAssignEntity.ToDate = ui.ToDate;
+					shiftAssignEntity.UpdatedBy = "System";
+					shiftAssignEntity.UpdatedAt = DateTime.Now;
+					shiftAssignEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
 				};
 				_dbContext.ShiftAssigns.Update(shiftAssignEntity);
 				_dbContext.SaveChanges();

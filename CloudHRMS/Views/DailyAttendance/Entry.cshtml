@@ -1,5 +1,5 @@
 ﻿﻿@{
-    ViewData["Title"] = "DailyAttendance";
+    ViewData["Title"] = "Daily Attendance";
 }
 <h3>Daily Attendance Entry</h3>
 @{
@@ -36,17 +36,17 @@
     <div class="mb-3">
         <label class="form-label">Employee</label>
         <select class="form-select" name="EmployeeId">
-            <option selected>Open this select menu</option>
+            <option selected>[Select Employee]</option>
             @foreach (var employee in ViewBag.Employees)
             {
-                <option value="@employee.Id">@employee.Code</option>
+                <option value="@employee.Id">@employee.No</option>
             }
         </select>
     </div>
     <div class="mb-3">
         <label class="form-label">Department</label>
         <select class="form-select" name="DepartmentId">
-            <option selected>Open this select menu</option>
+            <option selected>[Select Department]</option>
             @foreach (var department in ViewBag.Departments)
             {
                 <option value="@department.Id">@department.Code</option>

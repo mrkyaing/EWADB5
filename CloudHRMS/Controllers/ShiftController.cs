@@ -1,11 +1,11 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Utility.NetworkHelper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
 {
-
 	public class ShiftController : Controller
 	{
 		private readonly ApplicationDbContext _dbContext;
@@ -44,7 +44,7 @@ namespace CloudHRMS.Controllers
 					LateAfter = shiftViewModel.LateAfter,
 					EarlyOutBefore = shiftViewModel.EarlyOutBefore,
 					AttendancePolicyId = shiftViewModel.AttendancePolicyId,
-					CreatedAt = DateTime.Now
+					CreatedBy = "System"
 				};
 				_dbContext.Shifts.Add(shiftEntity);
 				_dbContext.SaveChanges();
@@ -103,18 +103,16 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				ShiftEntity shiftEntity = new ShiftEntity()
-				{
-					Id = shiftViewModel.Id,
-					Name = shiftViewModel.Name,
-					InTime = shiftViewModel.InTime,
-					OutTime = shiftViewModel.OutTime,
-					LateAfter = shiftViewModel.LateAfter,
-					EarlyOutBefore = shiftViewModel.EarlyOutBefore,
-					AttendancePolicyId = shiftViewModel.AttendancePolicyId,
-					UpdatedAt = DateTime.Now,
-					CreatedAt = shiftViewModel.CreatedOn
-				};
+				ShiftEntity shiftEntity = _dbContext.Shifts.Find(shiftViewModel.Id);
+				shiftEntity.Name = shiftViewModel.Name;
+				shiftEntity.InTime = shiftViewModel.InTime;
+				shiftEntity.OutTime = shiftViewModel.OutTime;
+				shiftEntity.LateAfter = shiftViewModel.LateAfter;
+				shiftEntity.EarlyOutBefore = shiftViewModel.EarlyOutBefore;
+				shiftEntity.AttendancePolicyId = shiftViewModel.AttendancePolicyId;
+				shiftEntity.UpdatedAt = DateTime.Now;
+				shiftEntity.UpdatedBy = "System";
+				shiftEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
 				_dbContext.Shifts.Update(shiftEntity);
 				_dbContext.SaveChanges();
 				ViewData["Info"] = "Successfully update the record to the system.";

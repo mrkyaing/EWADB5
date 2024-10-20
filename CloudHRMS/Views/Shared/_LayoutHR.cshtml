@@ -196,13 +196,12 @@
                 </div>
             </div>
             <!-- Sidebar Menu -->
-
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Position
@@ -264,7 +263,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/employee/index" class="nav-link">
+                                <a href="/employee/list" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>List</p>
                                 </a>
@@ -602,3 +601,16 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+     $(document).ready(function() {
+    // Add click event to all nav-link elements inside nav-treeview
+    $('.nav-treeview .nav-link').on('click', function() {
+    // Remove active class from all nav-link elements
+    $('.nav-treeview .nav-link').removeClass('active');
+
+    // Add active class to the clicked nav-link element
+    $(this).addClass('active');
+    });
+    });
+</script>
+
