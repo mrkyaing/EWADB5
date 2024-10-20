@@ -13,7 +13,7 @@
 - Payroll Process & Payroll History
 - Reportings
 - Dashboard for each role (Admin, HR, Employee User, etc)
-# Plug in
+# Plug in used in Cloud HRMS 
 - sweetalert2 https://sweetalert2.github.io/
 - toastr https://codeseven.github.io/toastr/demo.html
 - Admin LTE https://adminlte.io/
