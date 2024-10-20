@@ -13,5 +13,9 @@
 - Payroll Process & Payroll History
 - Reportings
 - Dashboard for each role (Admin, HR, Employee User, etc)
-
-
+# Plug in
+- sweetalert2 https://sweetalert2.github.io/
+- toastr https://codeseven.github.io/toastr/demo.html
+- Admin LTE https://adminlte.io/
+- public website template https://github.com/dawidolko/Website-Templates?tab=readme-ov-file
+- datatables.net https://datatables.net/
