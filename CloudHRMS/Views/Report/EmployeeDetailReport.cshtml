@@ -1,0 +1,61 @@
+﻿@model EmployeeDetailReportModel
+@{
+    ViewData["Title"] = "Employee Detail Report";
+}
+<h3>Employee Detail Report</h3>
+@{
+    var info = ViewData["Info"];
+}
+@if (info != null)
+{
+    if (Convert.ToBoolean(ViewData["IsErrorOccur"]))
+    {
+        <div class="alert alert-danger" role="alert">
+            @info
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success" role="alert">
+            @info
+        </div>
+    }
+}
+<form action="/report/EmployeeDetailReport" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Department</label>
+        <select class="form-select" name="DepartmentId">
+            <option selected value="x">[Select Department]</option>
+            @foreach (var department in Model.Departments)
+            {
+                <option value="@department.Id">@department.Code / @department.Description</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">From Employee No</label>
+        <select class="form-select" name="fromEmployeeNo">
+            <option selected>[Select From Employee No]</option>
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.No">@employee.No/@employee.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">To Employee No</label>
+        <select class="form-select" name="toEmployeeNo">
+            <option selected>[Select To Employee No]</option>
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.No">@employee.No/@employee.FullName</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Export to Excel</button>
+    <button type="reset" class="btn btn-danger">Cancel</button>
+</form>

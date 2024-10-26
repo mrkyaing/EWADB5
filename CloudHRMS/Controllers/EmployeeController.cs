@@ -3,6 +3,7 @@ using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
 using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -19,6 +20,7 @@ namespace CloudHRMS.Controllers
             _applicationDbContext = applicationDbContext;
             _userService = userService;
         }
+        [Authorize(Roles = "HR")]
         public IActionResult Entry()
         {
             var employeeViewModel = new EmployeeViewModel();
@@ -35,6 +37,7 @@ namespace CloudHRMS.Controllers
 
             return View(employeeViewModel);//passing the employee viewModel to the related View
         }
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
         {
@@ -112,7 +115,7 @@ namespace CloudHRMS.Controllers
 
             return View(employees);//pass the viewModel object to the related view
         }
-
+        [Authorize(Roles = "HR")]
         //port://host/employee/delete?id=10
         public IActionResult Delete(string Id)
         {
@@ -136,7 +139,7 @@ namespace CloudHRMS.Controllers
             }
             return RedirectToAction("List");
         }
-
+        [Authorize(Roles = "HR")]
         public IActionResult Edit(string Id)
         {
 
@@ -168,6 +171,7 @@ namespace CloudHRMS.Controllers
             }).ToList();
             return View(employeeViewModel);
         }
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Update(EmployeeViewModel employeeViewModel)
         {

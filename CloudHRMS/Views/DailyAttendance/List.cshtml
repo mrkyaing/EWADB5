@@ -1,7 +1,11 @@
 ﻿﻿
 @model IList<DailyAttendanceViewModel>
 <h3>Daily Attendance Information</h3>
-<a href="/dailyattendance/entry" class="btn btn-outline-primary">Entry</a>
+@if (User.IsInRole("HR"))
+{
+    <a href="/dailyattendance/entry" class="btn btn-outline-primary">Entry</a>
+}
+
 @{
     if (TempData["Msg"] != null)
     {
@@ -64,7 +68,6 @@ else{
                 </tr>
                 i++;
             }
-        }
     </tbody>
 </table>
 }

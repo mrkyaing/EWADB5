@@ -2,6 +2,7 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -13,7 +14,7 @@ namespace CloudHRMS.Controllers
         {
             _dbContext = dbContext;
         }
-
+        [Authorize(Roles = "HR")]
         public IActionResult Entry()
         {
             bindEmployeeData();
@@ -42,7 +43,7 @@ namespace CloudHRMS.Controllers
            }).ToList();
             ViewBag.Shifts = shifts;    //passing the all of position to the UI
         }
-
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Entry(ShiftAssignViewModel ui)
         {
@@ -72,7 +73,7 @@ namespace CloudHRMS.Controllers
             }
             bindEmployeeData();
             bindShiftData();
-            return View();
+            return RedirectToAction("List");
         }
         public IActionResult List()
         {
@@ -94,6 +95,7 @@ namespace CloudHRMS.Controllers
             return View(shiftAssigns);
         }
 
+        [Authorize(Roles = "HR")]
         public IActionResult Edit(string id)
 
         {
@@ -111,6 +113,8 @@ namespace CloudHRMS.Controllers
             bindShiftData();
             return View(shiftAssignView);
         }
+
+        [Authorize(Roles = "HR")]
 
         [HttpPost]
         public IActionResult Update(ShiftAssignViewModel ui)
@@ -140,7 +144,7 @@ namespace CloudHRMS.Controllers
             }
             return RedirectToAction("List");
         }
-
+        [Authorize(Roles = "HR")]
         public IActionResult Delete(string id)
         {
             try

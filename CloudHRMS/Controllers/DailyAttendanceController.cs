@@ -71,7 +71,7 @@ namespace CloudHRMS.Controllers
             }
             bindEmployeeData();
             bindDepartmentData();
-            return View();
+            return RedirectToAction("List");
         }
         public IActionResult List()
         {
@@ -111,6 +111,7 @@ namespace CloudHRMS.Controllers
             bindEmployeeData();
             return View(dailyAttendanceView);
         }
+
         [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Update(DailyAttendanceViewModel dailyAttendanceViewModel)
@@ -139,6 +140,8 @@ namespace CloudHRMS.Controllers
             }
             return RedirectToAction("List");
         }
+
+
         [Authorize(Roles = "HR")]
         public IActionResult Delete(string id)
         {

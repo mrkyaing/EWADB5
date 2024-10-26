@@ -1,5 +1,6 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -15,8 +16,9 @@ namespace CloudHRMS.Controllers
         #endregion
 
         #region Create Function
+        [Authorize(Roles = "HR")]
         public IActionResult Entry() => View();
-
+        [Authorize(Roles = "HR")]
 
         [HttpPost]
         public IActionResult Entry(PositionViewModel positionViewModel)
@@ -37,9 +39,10 @@ namespace CloudHRMS.Controllers
         public IActionResult List() => View(_positionService.ReteriveAll());
         #endregion
 
+        [Authorize(Roles = "HR")]
         #region Update Function
         public IActionResult Edit(string Id) => View(_positionService.GetById(Id));
-
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Update(PositionViewModel positionViewModel)
         {
@@ -58,7 +61,7 @@ namespace CloudHRMS.Controllers
             return RedirectToAction("List");
         }
         #endregion
-
+        [Authorize(Roles = "HR")]
         #region Delete Function
         [HttpPost]
         public IActionResult Delete(string Id)

@@ -19,6 +19,8 @@ builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
 //Register the user service to be use.
 builder.Services.AddScoped<IUserService, UserService>();
+//Register the Reporting service to be use.
+builder.Services.AddScoped<IReportingService, ReportingService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

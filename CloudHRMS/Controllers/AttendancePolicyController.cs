@@ -2,6 +2,7 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -13,8 +14,10 @@ namespace CloudHRMS.Controllers
         {
             _dbContext = dbContext;
         }
+        [Authorize(Roles = "HR")]
         public IActionResult Entry() => View();
 
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Entry(AttendancePolicyViewModel attendancePolicyViewModel)
         {
@@ -56,6 +59,7 @@ namespace CloudHRMS.Controllers
             }).ToList();
             return View(attendancePolicy);
         }
+        [Authorize(Roles = "HR")]
         public IActionResult Edit(string id)
         {
             AttendancePolicyViewModel attendancePolicy = _dbContext.AttendancePolicies.Where(w => w.Id == id && w.IsActive).Select(s => new AttendancePolicyViewModel
@@ -71,6 +75,7 @@ namespace CloudHRMS.Controllers
             }).FirstOrDefault();
             return View(attendancePolicy);
         }
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Update(AttendancePolicyViewModel attendancePolicyViewModel)
         {
@@ -100,6 +105,8 @@ namespace CloudHRMS.Controllers
             }
             return RedirectToAction("List");
         }
+
+        [Authorize(Roles = "HR")]
         public IActionResult Delete(string id)
         {
             try
