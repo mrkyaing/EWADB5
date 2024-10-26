@@ -17,7 +17,7 @@ namespace CloudHRMS.Models.ReportModels
         public string DepartmentInfo { get; set; }
         public string PositonInfo { get; set; }
 
-        public IList<EmployeeViewModel> Employees { get; set; }
-        public IList<DepartmentViewModel> Departments { get; set; }
+        public IList<EmployeeViewModel> Employees { get; set; }//for select list dorpdown
+        public IList<DepartmentViewModel> Departments { get; set; }//for select list dorpdown
     }
 }

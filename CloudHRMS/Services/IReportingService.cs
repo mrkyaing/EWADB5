@@ -7,7 +7,6 @@ namespace CloudHRMS.Services
     {
         IList<EmployeeViewModel> GetAllEmployees();
         IList<DepartmentViewModel> GetAllDepartments();
-
         IList<EmployeeDetailReportModel> GetEmployeeDetailReport(string fromNo, string toNo, string Department);
     }
 }

@@ -1,5 +1,4 @@
-﻿using CloudHRMS.DAO;
-using CloudHRMS.Models.ReportModels;
+﻿using CloudHRMS.Models.ReportModels;
 using CloudHRMS.Services;
 using CloudHRMS.Utility;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +8,9 @@ namespace CloudHRMS.Controllers
     public class ReportController : Controller
     {
         private readonly IReportingService _reportingService;
+        public ReportController(IReportingService reportingService) => _reportingService = reportingService;
 
-        public ReportController(IReportingService reportingService)
-        {
-            this._reportingService = reportingService;
-        }
-        public IActionResult EmployeeDetailReport()
-        {
-
-            return View(GetBindData());
-        }
+        public IActionResult EmployeeDetailReport() => View(GetBindData());
 
         [HttpPost]
         public IActionResult EmployeeDetailReport(string departmentId, string fromEmployeeNo, string toEmployeeNo)
