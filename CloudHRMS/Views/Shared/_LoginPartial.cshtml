@@ -21,22 +21,6 @@ else
     </li>
 }
 </ul>
-<script>
-    $("#logout").on('click', function (e) {
-        e.preventDefault(); // Prevent form submission
+<!-- Include the JavaScript file -->
+<script src="~/js/login.js"></script>
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You will be logged out!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, logout!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('logoutForm').submit(); // Submit the form
-            }
-        });
-    });
-</script>
