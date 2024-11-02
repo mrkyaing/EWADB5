@@ -1,0 +1,95 @@
+﻿@model List<AttendanceMasterViewModel>
+<h1>Attendance Master  Information (After DayEnd Process)</h1>
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["info"]
+    </div>
+}
+<table class="table table-bordered table-striped" id="attendancemasterTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <td scope="col">AttendanceDate</td>
+            <td scope="col">InTime</td>
+            <td scope="col">OutTime</td>
+            <td scope="col">Employee</td>
+            <td scope="col">Department</td>
+            <td scope="col">Shift</td>
+            <td scope="col">Is Late</td>
+            <td scope="col">Is Early Out</td>
+            <td scope="col">Is Leave</td>
+            @if (User.IsInRole("HR"))
+            {
+                <th scope="col">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@index</th>
+                <td>@item.AttendanceDate</td>
+                <td>@item.InTime</td>
+                <td>@item.OutTime</td>
+                <td>@item.EmployeeId</td>
+                <td>@item.DepartmentId</td>
+                <td>@item.ShiftId</td>
+                <td>
+                    @if (item.IsLate)
+                    {
+                        <span>✔</span>
+                    }
+                    else
+                    {
+                        <span>❌</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsEarlyOut)
+                    {
+                        <span>✔</span>
+                    }
+                    else
+                    {
+                        <span>❌</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsEarlyOut)
+                    {
+                        <span>✔</span>
+                    }
+                    else
+                    {
+                        <span>❌</span>
+                    }
+                </td>
+                @if (User.IsInRole("HR"))
+                {
+                    <td>
+                        <div class="btn btn-group">
+                            <a href="/employee/Edit?id=@item.Id" class="btn btn-primary" role="button">Edit</a>
+                            <a asp-action="Delete" asp-controller="Employee" asp-route-id="@item.Id" onclick="return confirm('are you sure to delete this record?');" class="btn btn-danger" role="button"> Delete</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#attendancemasterTable").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#attendancemasterTable_wrapper .col-md-6:eq(0)');
+    });
+</script>

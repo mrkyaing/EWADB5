@@ -1,0 +1,75 @@
+﻿﻿
+@model List<PayrollViewModel>
+<h1>Payroll Information for each employee</h1>
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["info"]
+    </div>
+}
+<table class="table table-bordered table-striped" id="PayrollTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <td scope="col">FromDate</td>
+            <td scope="col">ToDate</td>
+            <td scope="col">Employee</td>
+            <td scope="col">Department</td>
+            <td scope="col">Basic Salary</td>
+            <td scope="col">IncomeTax</td>
+            <td scope="col">GrossPay</td>
+            <td scope="col">Allowance</td>
+            <td scope="col">Deduction</td>
+            <td scope="col">Attendance Deduction</td>
+            <td scope="col">Net Pay</td>
+            <td scope="col">Attendance Days</td>
+            @if (User.IsInRole("HR"))
+            {
+                <th scope="col">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@index</th>
+                <td>@item.FromDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.ToDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.EmployeeInfo</td>
+                <td>@item.DepartmentInfo</td>
+                <td>@item.BasicSalary</td>
+                <td>@item.IncomeTax</td>
+                <td>@item.GrossPay</td>
+                <td>@item.Allowance</td>
+                <td>@item.Deduction</td>
+                <td>@item.AttendanceDeduction</td>
+                <td>@item.NetPay</td>
+                <td>@item.AttendanceDays</td>
+                @if (User.IsInRole("HR"))
+                {
+                    <td>
+                        <div class="btn btn-group">
+                            <a href="#" class="btn btn-primary" role="button">Edit</a>
+                            <a asp-action="Delete" asp-controller="Payroll" asp-route-id="@item.Id" onclick="return confirm('are you sure to delete this record?');" class="btn btn-danger" role="button"> Delete</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#PayrollTable").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#PayrollTable_wrapper .col-md-6:eq(0)');
+    });
+</script>

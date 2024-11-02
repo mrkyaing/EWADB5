@@ -1,0 +1,56 @@
+﻿<div>
+    <h1>DayEnd Process</h1>
+    @if (ViewBag.info != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.info
+        </div>
+    }
+    <form action="/attendancemaster/dayendprocess" method="post">
+        <div class="mb-3">
+            <label for="DepartmentId" class="form-label">Department</label>
+            <select name="DepartmentId" class="form-select">
+                <option value="x" selected>[select department]</option>
+                @foreach (var d in ViewBag.Departments)
+                {
+                    <option value="@d.Id">@d.Description</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="EmployeeId" class="form-label">Employee</label>
+            <select name="EmployeeId" class="form-select">
+                <option value="x" selected>[select employee]</option>
+                @foreach (var e in ViewBag.Employees)
+                {
+                    <option value="@e.Id">@e.No / @e.FullName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="ShiftId" class="form-label">Shifts</label>
+            <select name="ShiftId" class="form-select">
+                <option value="x" selected>[select shift]</option>
+                @foreach (var s in ViewBag.Shifts)
+                {
+                    <option value="@s.Id">@s.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="FromDate" class="form-label">From Date</label>
+            <input type="date" name="AttendanceDate" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="ToDate" class="form-label">To Date</label>
+            <input type="date" name="ToDate" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Day End Process</button>
+            <button class="btn btn-danger">Cancel</button>
+        </div>
+    </form>
+</div>

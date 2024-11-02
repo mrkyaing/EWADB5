@@ -17,22 +17,22 @@
         <input type="time" class="form-control" name="OutTime" required>
     </div>
     <div class="mb-3">
-        <label class="form-label">Employee</label>
-        <select class="form-select" name="EmployeeId">
-            <option selected>[Select Employee]</option>
-            @foreach (var employee in ViewBag.Employees)
-            {
-                <option value="@employee.Id">@employee.No</option>
-            }
-        </select>
-    </div>
-    <div class="mb-3">
         <label class="form-label">Department</label>
         <select class="form-select" name="DepartmentId">
             <option selected>[Select Department]</option>
             @foreach (var department in ViewBag.Departments)
             {
                 <option value="@department.Id">@department.Code</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            <option selected>[Select Employee]</option>
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.Id">@employee.No</option>
             }
         </select>
     </div>

@@ -49,17 +49,41 @@ namespace CloudHRMS.Controllers
         {
             try
             {
-                DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                IList<DailyAttendanceEntity> dailyAttendances = new List<DailyAttendanceEntity>();
+                if (dailyAttendanceViewModel.DepartmentId.Equals("[Select Department]"))
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
-                    InTime = dailyAttendanceViewModel.InTime,
-                    OutTime = dailyAttendanceViewModel.OutTime,
-                    EmployeeId = dailyAttendanceViewModel.EmployeeId,
-                    DepartmentId = dailyAttendanceViewModel.DepartmentId,
-                    CreatedBy = "System"
-                };
-                _dbContext.DailyAttendances.Add(dailyAttendanceEntity);
+                    var departmentId = _dbContext.Employees.Find(dailyAttendanceViewModel.Id).DepartmentId;
+                    DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
+                        InTime = dailyAttendanceViewModel.InTime,
+                        OutTime = dailyAttendanceViewModel.OutTime,
+                        EmployeeId = dailyAttendanceViewModel.EmployeeId,
+                        DepartmentId = departmentId,
+                        CreatedBy = "System"
+                    };
+                    dailyAttendances.Add(dailyAttendanceEntity);
+                }
+                else
+                {
+                    var employees = _dbContext.Employees.Where(w => w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
+                    foreach (var employee in employees)
+                    {
+                        DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
+                            InTime = dailyAttendanceViewModel.InTime,
+                            OutTime = dailyAttendanceViewModel.OutTime,
+                            EmployeeId = employee.Id,
+                            DepartmentId = employee.DepartmentId,
+                            CreatedBy = "System"
+                        };
+                        dailyAttendances.Add(dailyAttendanceEntity);
+                    }
+                }
+                _dbContext.DailyAttendances.AddRange(dailyAttendances);
                 _dbContext.SaveChanges();
                 TempData["Msg"] = "Successfully created the record to the system";
                 TempData["IsOccurError"] = false;
