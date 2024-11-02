@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CloudHRMS\CloudHRMS.csproj" />
+		<ProjectReference Include="..\CloudHRMS\CloudHRMS.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
