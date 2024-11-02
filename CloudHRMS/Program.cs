@@ -10,12 +10,14 @@ var config = builder.Configuration;//declare the configuration to read connectio
 var connectionString = config.GetConnectionString("CloudHRMSConnectingStringMySQL");
 //add the dbContext that we defined the ApplicationDbContext to get connection string name
 //Database Connection with MS SQL
-//builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
+builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
 //Database Connection with MySQL
+/*
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString,
     new MySqlServerVersion(new Version(8, 0, 35)),
     mySqlOptions => mySqlOptions.EnableRetryOnFailure()));
+*/
 //Register for Identity UIs
 builder.Services.AddRazorPages();
 //Register for Identity dbContext for related Identity User and Roles.
