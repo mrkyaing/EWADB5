@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudHRMS", "CloudHRMS.csproj", "{0AD32348-39E2-4B5F-AA98-04BE85FCC18E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudHRMS.UnitTest", "..\CloudHRMS.UnitTest\CloudHRMS.UnitTest.csproj", "{5695184A-560A-41EB-9E73-2967A7C4AF6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0AD32348-39E2-4B5F-AA98-04BE85FCC18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD32348-39E2-4B5F-AA98-04BE85FCC18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD32348-39E2-4B5F-AA98-04BE85FCC18E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5695184A-560A-41EB-9E73-2967A7C4AF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5695184A-560A-41EB-9E73-2967A7C4AF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5695184A-560A-41EB-9E73-2967A7C4AF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5695184A-560A-41EB-9E73-2967A7C4AF6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace CloudHRMS.Repositories
         {
             _applicationDbContext = applicationDbContext;
         }
-        public void Create(PositionViewModel positionViewModel)
+        public PositionEntity Create(PositionViewModel positionViewModel)
         {
             try
             {
@@ -28,10 +28,12 @@ namespace CloudHRMS.Repositories
                 };
                 _applicationDbContext.Positions.Add(positionEntity);
                 _applicationDbContext.SaveChanges();
+                return positionEntity;
+
             }
             catch (Exception ex)
             {
-
+                return null;
             }
         }
 
@@ -82,7 +84,7 @@ namespace CloudHRMS.Repositories
             return positions;
         }
 
-        public void Update(PositionViewModel positionViewModel)
+        public PositionEntity Update(PositionViewModel positionViewModel)
         {
             try
             {
@@ -96,6 +98,7 @@ namespace CloudHRMS.Repositories
                 existingPositionEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
                 _applicationDbContext.Positions.Update(existingPositionEntity);
                 _applicationDbContext.SaveChanges();
+                return existingPositionEntity;
             }
             catch (Exception ex)
             {

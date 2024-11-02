@@ -24,6 +24,7 @@ namespace CloudHRMS.Controllers
         public IActionResult Entry()
         {
             var employeeViewModel = new EmployeeViewModel();
+
             employeeViewModel.DepartmentsViewModel = _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
             {
                 Id = s.Id,
