@@ -1,7 +1,10 @@
 ﻿﻿
 @model IList<ShiftViewModel>
 <h3>Shift List Information</h3>
-<a href="/shift/entry" class="btn btn-outline-primary">Entry</a>
+@if (User.IsInRole("HR"))
+{
+    <a href="/shift/entry" class="btn btn-outline-primary">Entry</a>
+}
 @{
     if (TempData["Msg"] != null)
     {

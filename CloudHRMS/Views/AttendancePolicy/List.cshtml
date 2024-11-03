@@ -19,7 +19,10 @@
         }
     }
 }
-<a href="/attendancepolicy/entry" class="btn btn-outline-primary">Entry</a>
+@if (User.IsInRole("HR"))
+{
+    <a href="/attendancepolicy/entry" class="btn btn-outline-primary">Entry</a>
+}
 <table class="table table-hover" id="AttendancePolicyTable">
     <thead class="table-dark">
         @{

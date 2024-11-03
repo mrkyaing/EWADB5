@@ -18,7 +18,11 @@
     }
 }
 <h1>Employee List Information</h1>
-<a href="/employee/entry" class="btn btn-success">Create</a>
+@if (User.IsInRole("HR"))
+{
+    <a href="/employee/entry" class="btn btn-success">Create</a>
+}
+
 <table class="table table-hover" id="employeeTable">
     <thead class="table-dark">
         <tr>
@@ -35,7 +39,10 @@
             <th scope="col">DOR</th>
             <th scope="col">Gender</th>
             <th scope="col">Address</th>
-            <th>Actions</th>
+            @if (User.IsInRole("HR"))
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
     @{
@@ -58,10 +65,13 @@
                 <td>@(employee.DOR?.ToString("dd-MM-yyyy"))</td>
                 <td>@employee.Gender</td>
                 <td>@employee.Address</td>
-                <td>
-                    <a class="btn btn-success" href="/Employee/Edit?Id=@employee.Id">Edit</a>
+                @if (User.IsInRole("HR"))
+                {
+                    <td>
+                        <a class="btn btn-success" href="/Employee/Edit?Id=@employee.Id">Edit</a>
                     <a class="btn btn-danger" href="/Employee/Delete?Id=@employee.Id"  onclick="return confirm('Are you sure to dele this record?');">Delete</a>
                 </td>
+                }
             </tr>
             i++;
         }

@@ -30,6 +30,8 @@ namespace CloudHRMS.Services
             }
         }
 
+        public Task<IdentityUser> FindByUserName(string userName) => _userManager.FindByNameAsync(userName);
+
         private IdentityUser CreateUser()
         {
             try

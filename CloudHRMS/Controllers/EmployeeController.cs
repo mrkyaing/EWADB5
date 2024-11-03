@@ -4,6 +4,7 @@ using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
 using CloudHRMS.Utility.NetworkHelper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -111,9 +112,14 @@ namespace CloudHRMS.Controllers
                                                       DepartmentId = e.DepartmentId,//CURD Process
                                                       PositionId = e.PositionId,//CURD Process
                                                       DepartmentInfo = d.Description,//to display UI List
-                                                      PositonInfo = p.Description//to display UI List
+                                                      PositonInfo = p.Description,//to display UI List
+                                                      UserId = e.UserId
                                                   }).ToList();
-
+            if (!User.IsInRole("HR"))
+            {
+                var loginedUser = _userService.FindByUserName(User.Identity.Name).Result;
+                employees = employees.Where(u => u.UserId == loginedUser.Id).ToList();
+            }
             return View(employees);//pass the viewModel object to the related view
         }
         [Authorize(Roles = "HR")]

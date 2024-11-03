@@ -2,6 +2,11 @@
 {
     Layout = "_LayoutHR";
 }
-else{
-    Layout = "_Layout";
+else if (User.IsInRole("Employee"))
+{
+    Layout = "_LayoutEmployee";
+}
+else
+{
+    Layout = "_LayoutPublic";
 }
