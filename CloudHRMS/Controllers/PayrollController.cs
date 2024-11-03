@@ -108,6 +108,7 @@ namespace CloudHRMS.Controllers
                 payroll.Allowance = allowance;
                 payroll.Deduction = deduction;
                 payroll.AttendanceDays = calculatedData.AttendanceDays;
+                payroll.CreatedBy = "System";
                 payrolls.Add(payroll);
             }
             return payrolls;

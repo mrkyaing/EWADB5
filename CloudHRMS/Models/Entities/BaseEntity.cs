@@ -9,7 +9,7 @@ namespace CloudHRMS.Models.Entities
         public string Id { get; set; }//Primary Key for table created process
         //Audit Columns
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string CreatedBy { get; set; }//WHO created this recrod
+        public string CreatedBy { get; set; }//WHO created this record
         public DateTime? UpdatedAt { get; set; }//WHEN Updated
         public string? UpdatedBy { get; set; }
         public string IpAddress { get; set; } = NetworkHelper.GetMachinePublicIP();
