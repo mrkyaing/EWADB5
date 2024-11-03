@@ -53,22 +53,27 @@ namespace CloudHRMS.Controllers
                 if (dailyAttendanceViewModel.DepartmentId.Equals("[Select Department]"))
                 {
                     var departmentId = _dbContext.Employees.Find(dailyAttendanceViewModel.Id).DepartmentId;
-                    DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                    if (dailyAttendanceViewModel.IsToCurrentDate.HasValue)
                     {
-                        Id = Guid.NewGuid().ToString(),
-                        AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
-                        InTime = dailyAttendanceViewModel.InTime,
-                        OutTime = dailyAttendanceViewModel.OutTime,
-                        EmployeeId = dailyAttendanceViewModel.EmployeeId,
-                        DepartmentId = departmentId,
-                        CreatedBy = "System"
-                    };
-                    dailyAttendances.Add(dailyAttendanceEntity);
-                }
-                else
-                {
-                    var employees = _dbContext.Employees.Where(w => w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
-                    foreach (var employee in employees)
+                        var startDate = dailyAttendanceViewModel.AttendanceDate;
+                        var endDate = DateTime.Now.Date;
+                        while(startDate<= endDate)
+                        {
+                            DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                AttendanceDate = startDate,
+                                InTime = dailyAttendanceViewModel.InTime,
+                                OutTime = dailyAttendanceViewModel.OutTime,
+                                EmployeeId = dailyAttendanceViewModel.EmployeeId,
+                                DepartmentId = departmentId,
+                                CreatedBy = "System"
+                            };
+                            dailyAttendances.Add(dailyAttendanceEntity);
+                            startDate.AddDays(1);
+                        }
+                    }
+                    else
                     {
                         DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
                         {
@@ -76,11 +81,55 @@ namespace CloudHRMS.Controllers
                             AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
                             InTime = dailyAttendanceViewModel.InTime,
                             OutTime = dailyAttendanceViewModel.OutTime,
-                            EmployeeId = employee.Id,
-                            DepartmentId = employee.DepartmentId,
+                            EmployeeId = dailyAttendanceViewModel.EmployeeId,
+                            DepartmentId = departmentId,
                             CreatedBy = "System"
                         };
                         dailyAttendances.Add(dailyAttendanceEntity);
+                    }
+                }
+                else
+                {
+                    var employees = _dbContext.Employees.Where(w => w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
+                    if (dailyAttendanceViewModel.IsToCurrentDate.HasValue)
+                    {
+                        var startDate = dailyAttendanceViewModel.AttendanceDate;
+                        var endDate = DateTime.Now.Date;
+                        while (startDate <= endDate)
+                        {
+                            foreach (var employee in employees)
+                            {
+                                DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                                {
+                                    Id = Guid.NewGuid().ToString(),
+                                    AttendanceDate = startDate,
+                                    InTime = dailyAttendanceViewModel.InTime,
+                                    OutTime = dailyAttendanceViewModel.OutTime,
+                                    EmployeeId = employee.Id,
+                                    DepartmentId = employee.DepartmentId,
+                                    CreatedBy = "System"
+                                };
+                                dailyAttendances.Add(dailyAttendanceEntity);
+                                startDate.AddDays(1);
+                            }//end of for
+                        }
+                    }
+                    else
+                    {
+                        foreach (var employee in employees)
+                        {
+                            DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                AttendanceDate = dailyAttendanceViewModel.AttendanceDate,
+                                InTime = dailyAttendanceViewModel.InTime,
+                                OutTime = dailyAttendanceViewModel.OutTime,
+                                EmployeeId = employee.Id,
+                                DepartmentId = employee.DepartmentId,
+                                CreatedBy = "System"
+                            };
+                            dailyAttendances.Add(dailyAttendanceEntity);
+                        }//end of for
                     }
                 }
                 _dbContext.DailyAttendances.AddRange(dailyAttendances);

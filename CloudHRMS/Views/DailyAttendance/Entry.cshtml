@@ -9,6 +9,14 @@
         <input type="date" class="form-control" name="AttendanceDate" required>
     </div>
     <div class="mb-3">
+        <label class="form-label">To Current Date:</label>
+        <!-- Hidden input to ensure "false" is sent when checkbox is unchecked -->
+        <input type="hidden" name="IsToCurrentDate" value="false" />
+        <!-- Checkbox input to send "true" when checked -->
+        <input type="checkbox" name="IsToCurrentDate" value="true" class="btn-check" />
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">In Time:</label>
         <input type="time" class="form-control" name="InTime" required>
     </div>
