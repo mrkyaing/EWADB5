@@ -50,14 +50,17 @@ namespace CloudHRMS.Controllers
             try
             {
                 IList<DailyAttendanceEntity> dailyAttendances = new List<DailyAttendanceEntity>();
+
                 if (dailyAttendanceViewModel.DepartmentId.Equals("[Select Department]"))
                 {
-                    var departmentId = _dbContext.Employees.Find(dailyAttendanceViewModel.Id).DepartmentId;
-                    if (dailyAttendanceViewModel.IsToCurrentDate.HasValue)
+                    var departmentId = _dbContext.Employees.Find(dailyAttendanceViewModel.EmployeeId).DepartmentId;
+                    var existingDailyAttendances = _dbContext.DailyAttendances.Where(w => w.AttendanceDate.Date == dailyAttendanceViewModel.AttendanceDate.Date && w.DepartmentId == departmentId).ToList();
+                    DeleteDailyAttendancesBeforeAdd(existingDailyAttendances);
+                    if (dailyAttendanceViewModel.IsToCurrentDate)
                     {
                         var startDate = dailyAttendanceViewModel.AttendanceDate;
-                        var endDate = DateTime.Now.Date;
-                        while(startDate<= endDate)
+                        var now = DateTime.Now;
+                        while (startDate.Date <= now.Date)
                         {
                             DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
                             {
@@ -70,7 +73,7 @@ namespace CloudHRMS.Controllers
                                 CreatedBy = "System"
                             };
                             dailyAttendances.Add(dailyAttendanceEntity);
-                            startDate.AddDays(1);
+                            startDate = startDate.AddDays(1);
                         }
                     }
                     else
@@ -91,11 +94,13 @@ namespace CloudHRMS.Controllers
                 else
                 {
                     var employees = _dbContext.Employees.Where(w => w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
-                    if (dailyAttendanceViewModel.IsToCurrentDate.HasValue)
+                    var existingDailyAttendances = _dbContext.DailyAttendances.Where(w => w.AttendanceDate.Date == dailyAttendanceViewModel.AttendanceDate.Date && w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
+                    DeleteDailyAttendancesBeforeAdd(existingDailyAttendances);
+                    if (dailyAttendanceViewModel.IsToCurrentDate)
                     {
                         var startDate = dailyAttendanceViewModel.AttendanceDate;
-                        var endDate = DateTime.Now.Date;
-                        while (startDate <= endDate)
+                        var now = DateTime.Now;
+                        while (startDate.Date <= now.Date)
                         {
                             foreach (var employee in employees)
                             {
@@ -110,8 +115,8 @@ namespace CloudHRMS.Controllers
                                     CreatedBy = "System"
                                 };
                                 dailyAttendances.Add(dailyAttendanceEntity);
-                                startDate.AddDays(1);
                             }//end of for
+                            startDate = startDate.AddDays(1);
                         }
                     }
                     else
@@ -132,6 +137,7 @@ namespace CloudHRMS.Controllers
                         }//end of for
                     }
                 }
+
                 _dbContext.DailyAttendances.AddRange(dailyAttendances);
                 _dbContext.SaveChanges();
                 TempData["Msg"] = "Successfully created the record to the system";
@@ -146,6 +152,13 @@ namespace CloudHRMS.Controllers
             bindDepartmentData();
             return RedirectToAction("List");
         }
+
+        private void DeleteDailyAttendancesBeforeAdd(List<DailyAttendanceEntity> existingDailyAttendances)
+        {
+            _dbContext.DailyAttendances.RemoveRange(existingDailyAttendances);
+            _dbContext.SaveChanges();
+        }
+
         public IActionResult List()
         {
             IList<DailyAttendanceViewModel> dailyAttendances = (from da in _dbContext.DailyAttendances

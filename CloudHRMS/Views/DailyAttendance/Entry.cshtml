@@ -11,9 +11,9 @@
     <div class="mb-3">
         <label class="form-label">To Current Date:</label>
         <!-- Hidden input to ensure "false" is sent when checkbox is unchecked -->
-        <input type="hidden" name="IsToCurrentDate" value="false" />
+        <input type="hidden" name="IsToCurrentDate" value="false" id="hiddenIsToCurrentDate" />
         <!-- Checkbox input to send "true" when checked -->
-        <input type="checkbox" name="IsToCurrentDate" value="true"/>
+        <input type="checkbox" onchange="checkIsToCurrentDate();" id="chkIsToCurrentDate" />
     </div>
 
     <div class="mb-3">
@@ -47,3 +47,8 @@
     <button type="submit" class="btn btn-primary">Entry</button>
     <a href="/dailyattendance/list" class="btn btn-outline-primary">List</a>
 </form>
+<script>
+    function checkIsToCurrentDate(){
+        document.getElementById("hiddenIsToCurrentDate").value= document.getElementById("chkIsToCurrentDate").checked;
+    }
+</script>
