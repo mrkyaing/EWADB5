@@ -19,3 +19,5 @@
 - Admin LTE https://adminlte.io/
 - public website template https://github.com/dawidolko/Website-Templates?tab=readme-ov-file
 - datatables.net https://datatables.net/
+# Cloud HRMS on was (showcase)
+- http://cloudhrms-dev.eba-mmivqxcx.us-east-1.elasticbeanstalk.com/
