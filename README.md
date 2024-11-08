@@ -23,4 +23,5 @@
 - http://cloudhrms-dev.eba-mmivqxcx.us-east-1.elasticbeanstalk.com/
 # System Stakeholders
 - Admin , HR MGR, Employee , Public User
-- ![public UI View ](https://github.com/user-attachments/assets/ab6c161d-34b3-4762-83ef-f98f4aa99d66)
+  # Public User UI
+![public UI View ](https://github.com/user-attachments/assets/ab6c161d-34b3-4762-83ef-f98f4aa99d66)
