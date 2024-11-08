@@ -23,13 +23,13 @@
 - http://cloudhrms-dev.eba-mmivqxcx.us-east-1.elasticbeanstalk.com/
 # System Stakeholders
 - Admin , HR MGR, Employee , Public User
-  # Public User UI
+  # Public User View
 ![1](https://github.com/user-attachments/assets/41215bb1-1860-49da-8fe8-188326f2cbc4)
 ![7](https://github.com/user-attachments/assets/a250eb97-8c54-4558-b042-47735b45c14b)
-# HR MGR View UI 
+# HR MGR View 
 ![4](https://github.com/user-attachments/assets/3fca127b-b5e9-4bc2-9155-a11dd3424036)
 ![5](https://github.com/user-attachments/assets/46214249-1a9f-4e8f-a65b-118c512ae566)
 ![6](https://github.com/user-attachments/assets/489f173c-74d4-4f58-880c-4c18e3b14dba)
-# Employee (ESS) UI 
+# Employee (ESS) View
 ![2](https://github.com/user-attachments/assets/fe182906-e943-46eb-998d-a45de45ab0fe)
 ![3](https://github.com/user-attachments/assets/ea941b5e-e205-4601-901a-03bd96add769)
