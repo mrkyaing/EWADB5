@@ -21,3 +21,6 @@
 - datatables.net https://datatables.net/
 # Cloud HRMS on was (showcase)
 - http://cloudhrms-dev.eba-mmivqxcx.us-east-1.elasticbeanstalk.com/
+# System Stakeholders
+- Admin , HR MGR, Employee , Public User
+  
