@@ -24,4 +24,4 @@
 # System Stakeholders
 - Admin , HR MGR, Employee , Public User
   # Public User UI
-![public UI View ](https://github.com/user-attachments/assets/ab6c161d-34b3-4762-83ef-f98f4aa99d66)
+![1](https://github.com/user-attachments/assets/41215bb1-1860-49da-8fe8-188326f2cbc4)
