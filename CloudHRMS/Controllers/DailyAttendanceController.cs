@@ -1,17 +1,18 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.NetworkHelper;
+using CloudHRMS.Services;
+using CloudHRMS.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace CloudHRMS.Controllers
 {
-    public class DailyAttendanceController : Controller
+    public class DailyAttendanceController : MainController
     {
         private readonly ApplicationDbContext _dbContext;
-        public DailyAttendanceController(ApplicationDbContext dbContext)
+        public DailyAttendanceController(ApplicationDbContext dbContext, IUserService userService) : base(userService)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         [Authorize(Roles = "HR")]
@@ -70,7 +71,7 @@ namespace CloudHRMS.Controllers
                                 OutTime = dailyAttendanceViewModel.OutTime,
                                 EmployeeId = dailyAttendanceViewModel.EmployeeId,
                                 DepartmentId = departmentId,
-                                CreatedBy = "System"
+                                CreatedBy = UserId
                             };
                             dailyAttendances.Add(dailyAttendanceEntity);
                             startDate = startDate.AddDays(1);
@@ -86,7 +87,7 @@ namespace CloudHRMS.Controllers
                             OutTime = dailyAttendanceViewModel.OutTime,
                             EmployeeId = dailyAttendanceViewModel.EmployeeId,
                             DepartmentId = departmentId,
-                            CreatedBy = "System"
+                            CreatedBy = UserId
                         };
                         dailyAttendances.Add(dailyAttendanceEntity);
                     }
@@ -112,7 +113,7 @@ namespace CloudHRMS.Controllers
                                     OutTime = dailyAttendanceViewModel.OutTime,
                                     EmployeeId = employee.Id,
                                     DepartmentId = employee.DepartmentId,
-                                    CreatedBy = "System"
+                                    CreatedBy = UserId
                                 };
                                 dailyAttendances.Add(dailyAttendanceEntity);
                             }//end of for
@@ -131,7 +132,7 @@ namespace CloudHRMS.Controllers
                                 OutTime = dailyAttendanceViewModel.OutTime,
                                 EmployeeId = employee.Id,
                                 DepartmentId = employee.DepartmentId,
-                                CreatedBy = "System"
+                                CreatedBy = UserId
                             };
                             dailyAttendances.Add(dailyAttendanceEntity);
                         }//end of for

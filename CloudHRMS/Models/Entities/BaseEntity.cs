@@ -1,4 +1,4 @@
-﻿using CloudHRMS.Utility.NetworkHelper;
+﻿using CloudHRMS.Utility;
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudHRMS.Models.Entities
