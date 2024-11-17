@@ -1,38 +1,111 @@
-﻿using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Repositories;
+﻿using CloudHRMS.Models.Entities;
+using CloudHRMS.Models.ViewModels;
+using CloudHRMS.UnitOfWorks;
+using CloudHRMS.Utility;
 
 namespace CloudHRMS.Services
 {
-	public class PositionService : IPositionService
-	{
-		private readonly IPositoryRepository _positionRepository;
-		public PositionService(IPositoryRepository positoryRepository)
-		{
-			_positionRepository = positoryRepository;
-		}
-		public void Create(PositionViewModel positionView)
-		{
-			_positionRepository.Create(positionView);
-		}
+    public class PositionService : IPositionService
+    {
+        private readonly IUnitOfWork _unitOfWork;
 
-		public void Delete(string Id)
-		{
-			_positionRepository.Delete(Id);
-		}
+        public PositionService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        public PositionEntity Create(PositionViewModel positionViewModel)
+        {
+            try
+            {
+                PositionEntity positionEntity = new PositionEntity()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = positionViewModel.Code,
+                    Description = positionViewModel.Description,
+                    Level = positionViewModel.Level,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "System",
+                    IsActive = true
+                };
+                _unitOfWork.PositoryRepository.Create(positionEntity);
+                _unitOfWork.Commit();
+                return positionEntity;
 
-		public PositionViewModel GetById(string Id)
-		{
-			return _positionRepository.GetById(Id);
-		}
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-		public IList<PositionViewModel> ReteriveAll()
-		{
-			return _positionRepository.ReteriveAll();
-		}
+        public void Delete(string Id)
+        {
+            try
+            {
+                var existingPosition = _unitOfWork.PositoryRepository.Getby(w => w.Id == Id).SingleOrDefault();
+                if (existingPosition != null)
+                {
+                    existingPosition.IsActive = false;
+                    existingPosition.IpAddress = NetworkHelper.GetMachinePublicIP();
+                    _unitOfWork.PositoryRepository.Update(existingPosition);
+                    _unitOfWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
 
-		public void Update(PositionViewModel positionView)
-		{
-			_positionRepository.Update(positionView);
-		}
-	}
+        public PositionViewModel GetById(string Id)
+        {
+            return _unitOfWork.PositoryRepository.Getby(p => p.Id == Id)
+                            .Select(s => new PositionViewModel
+                            {
+                                Id = s.Id,
+                                Code = s.Code,
+                                Description = s.Description,
+                                Level = s.Level
+                            }).SingleOrDefault();
+        }
+
+        public IEnumerable<PositionViewModel> GetAll()
+        {
+            return _unitOfWork.PositoryRepository.GetAll();
+        }
+
+        public IList<PositionViewModel> ReteriveAll()
+        {
+            IList<PositionViewModel> positions = _unitOfWork.PositoryRepository.Getby(w => w.IsActive)
+                                                .Select(s => new PositionViewModel
+                                                {
+                                                    Id = s.Id,
+                                                    Code = s.Code,
+                                                    Description = s.Description,
+                                                    Level = s.Level
+
+                                                }).ToList();
+            return positions;
+        }
+
+        public PositionEntity Update(PositionViewModel positionViewModel)
+        {
+            try
+            {
+                var existingPositionEntity = _unitOfWork.PositoryRepository.Getby(w => w.Id == positionViewModel.Id).SingleOrDefault();
+                existingPositionEntity.Code = positionViewModel.Code;
+                existingPositionEntity.Description = positionViewModel.Description;
+                existingPositionEntity.Level = positionViewModel.Level;
+                existingPositionEntity.UpdatedAt = DateTime.Now;
+                existingPositionEntity.UpdatedBy = "System";
+                existingPositionEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
+                _unitOfWork.PositoryRepository.Update(existingPositionEntity);
+                _unitOfWork.Commit();
+                return existingPositionEntity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+    }
 }

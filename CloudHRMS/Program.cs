@@ -1,6 +1,7 @@
 using CloudHRMS.DAO;
-using CloudHRMS.Repositories;
+using CloudHRMS.Repositories.Domain;
 using CloudHRMS.Services;
+using CloudHRMS.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +25,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 //Register the Service Of Position Service
 builder.Services.AddScoped<IPositionService, PositionService>();
-//Register the Repository of Position Repository
-builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
+//Register for UnitOfWork : DatabaseConnection,UnitOfWork:The Service is created once per HTTP request ('scope')
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //Register the user service to be use.
 builder.Services.AddScoped<IUserService, UserService>();
 //Register the Reporting service to be use.
