@@ -4,7 +4,7 @@ namespace CloudHRMS.UnitOfWorks
 {
     public interface IUnitOfWork
     {
-        IPositoryRepository PositoryRepository { get; }
+        IPositoryRepository PositionRepository { get; }
         void Commit();
         void RollBack();
     }

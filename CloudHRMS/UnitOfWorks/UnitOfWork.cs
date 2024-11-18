@@ -13,7 +13,7 @@ namespace CloudHRMS.UnitOfWorks
         }
 
         private readonly IPositoryRepository _positoryRepository;
-        public IPositoryRepository PositoryRepository
+        public IPositoryRepository PositionRepository
         {
 
             get

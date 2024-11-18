@@ -2,7 +2,7 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Repositories.Common;
-using CloudHRMS.Utility;
+
 
 
 namespace CloudHRMS.Repositories.Domain
@@ -15,13 +15,9 @@ namespace CloudHRMS.Repositories.Domain
         {
             this._applicationDbContext = dbContext;
         }
-        public IEnumerable<PositionViewModel> GetAll()
+        public IEnumerable<PositionEntity> GetAll()
         {
-            return _applicationDbContext.Positions.Where(w => w.IsActive).Select(s => new PositionViewModel
-            {
-                Id = s.Id,
-                Description = s.Description,
-            }).ToList();
+            return _applicationDbContext.Positions.Where(w => w.IsActive);
         }
 
     }

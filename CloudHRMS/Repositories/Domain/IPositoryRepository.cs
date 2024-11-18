@@ -6,6 +6,6 @@ namespace CloudHRMS.Repositories.Domain
 {
     public interface IPositoryRepository : IBaseRepository<PositionEntity>
     {
-        IEnumerable<PositionViewModel> GetAll();
+        IEnumerable<PositionEntity> GetAll();
     }
 }

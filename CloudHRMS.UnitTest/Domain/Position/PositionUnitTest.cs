@@ -1,44 +1,75 @@
-﻿using CloudHRMS.DAO;
+﻿using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Repositories.Domain;
 using CloudHRMS.Services;
-using Microsoft.EntityFrameworkCore;
+using CloudHRMS.UnitOfWorks;
 using Moq;
+using Newtonsoft.Json;
 
 namespace CloudHRMS.UnitTest.Domain.Position
 {
     public class PositionUnitTest
     {
-        //mock the service
-        private Mock<IPositionService> positionServiceMock = new Mock<IPositionService>();
-        //mock the repository
-        private Mock<IPositoryRepository> positionRepositoryMock = new Mock<IPositoryRepository>();
+        //creating mock object for unit test of position services functions
+        //step 1: create mock object of service
+        public Mock<IPositionService> positionServiceMock = new Mock<IPositionService>();
+        //step 2: create mock object of Unit Of Work
+        public Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
+        //step 3: create mock object of Repository
+        public Mock<IPositoryRepository> positionRepositoryMock = new Mock<IPositoryRepository>();
+
         [Fact]
         public void ShouldCreate()
         {
-            // Arrange
-            var InputPositionViewModel = new PositionViewModel()
+            // 1) Arrange
+            var expectedPositionViewModel = new PositionViewModel()
             {
                 Code = "HR",
-                Description = "HR"
+                Description = "Human Resource MGR",
+                Level = 3
+            };
+            var dbPositonEntity = new PositionEntity()
+            {
+                Code = expectedPositionViewModel.Code,
+                Description = expectedPositionViewModel.Description,
+                Level = expectedPositionViewModel.Level
+            };
+            positionRepositoryMock.Setup(r => r.Create(dbPositonEntity));//mock Position Repository
+            unitOfWorkMock.Setup(u => u.PositionRepository).Returns(positionRepositoryMock.Object);//mock the Unit Of Work
+            //2) Act
+            var positionService = new PositionService(unitOfWorkMock.Object);//create  a service object with Unit Of work mock
+            //3) Assert
+            var actualResult = positionService.Create(expectedPositionViewModel);
+
+            Assert.Equal(expectedPositionViewModel.Code, actualResult.Code);
+            Assert.Equal(expectedPositionViewModel.Description, actualResult.Description);
+            Assert.Equal(expectedPositionViewModel.Level, actualResult.Level);
+        }
+
+        [Fact]
+        public void GetAll()
+        {
+            //Arrange
+            IEnumerable<PositionViewModel> expectedResults = new List<PositionViewModel>()
+            {
+                new PositionViewModel{Id="xy1",Code="SE",Description="SE" },
+                new PositionViewModel{Id="xyx1",Code="SE",Description="SE"}
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-
-            using (var applicationDb = new ApplicationDbContext(options))
+            IEnumerable<PositionEntity> positionEntities = new List<PositionEntity>()
             {
-
-                //var positionService = new PositionService(positionRepositoryMock.Object);
-                var positionRepository = new PositionRepository(applicationDb);
-
-                // Act & Assert
-                //positionService.Create(InputPositionViewModel);
-                //var outputPositionEntity = positionRepository.Create(InputPositionViewModel);
-                //Assert.Equal(InputPositionViewModel.Code, outputPositionEntity.Code);
-                //Assert.Equal(InputPositionViewModel.Description, outputPositionEntity.Description);
-            }
+                new PositionEntity{Id="xy1",Code="SE",Description="SE"},
+                new PositionEntity{Id="xyx1",Code="SE",Description="SE"}
+            };
+            positionRepositoryMock.Setup(r => r.GetAll()).Returns(positionEntities);
+            unitOfWorkMock.Setup(u => u.PositionRepository).Returns(() => positionRepositoryMock.Object);
+            //Act
+            var positionService = new PositionService(unitOfWorkMock.Object);
+            var actualResult = positionService.GetAll();
+            //Assert
+            var input = JsonConvert.SerializeObject(expectedResults);
+            var output = JsonConvert.SerializeObject(actualResult);
+            Assert.Equal(input, output);
         }
     }
 

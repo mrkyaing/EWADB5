@@ -27,7 +27,7 @@ namespace CloudHRMS.Services
                     CreatedBy = "System",
                     IsActive = true
                 };
-                _unitOfWork.PositoryRepository.Create(positionEntity);
+                _unitOfWork.PositionRepository.Create(positionEntity);
                 _unitOfWork.Commit();
                 return positionEntity;
 
@@ -42,12 +42,12 @@ namespace CloudHRMS.Services
         {
             try
             {
-                var existingPosition = _unitOfWork.PositoryRepository.Getby(w => w.Id == Id).SingleOrDefault();
+                var existingPosition = _unitOfWork.PositionRepository.Getby(w => w.Id == Id).SingleOrDefault();
                 if (existingPosition != null)
                 {
                     existingPosition.IsActive = false;
                     existingPosition.IpAddress = NetworkHelper.GetMachinePublicIP();
-                    _unitOfWork.PositoryRepository.Update(existingPosition);
+                    _unitOfWork.PositionRepository.Update(existingPosition);
                     _unitOfWork.Commit();
                 }
             }
@@ -58,7 +58,7 @@ namespace CloudHRMS.Services
 
         public PositionViewModel GetById(string Id)
         {
-            return _unitOfWork.PositoryRepository.Getby(p => p.Id == Id)
+            return _unitOfWork.PositionRepository.Getby(p => p.Id == Id)
                             .Select(s => new PositionViewModel
                             {
                                 Id = s.Id,
@@ -70,12 +70,17 @@ namespace CloudHRMS.Services
 
         public IEnumerable<PositionViewModel> GetAll()
         {
-            return _unitOfWork.PositoryRepository.GetAll();
+            return _unitOfWork.PositionRepository.GetAll().Select(s => new PositionViewModel
+            {
+                Id = s.Id,
+                Code = s.Code,
+                Description = s.Description
+            });
         }
 
         public IList<PositionViewModel> ReteriveAll()
         {
-            IList<PositionViewModel> positions = _unitOfWork.PositoryRepository.Getby(w => w.IsActive)
+            IList<PositionViewModel> positions = _unitOfWork.PositionRepository.Getby(w => w.IsActive)
                                                 .Select(s => new PositionViewModel
                                                 {
                                                     Id = s.Id,
@@ -91,14 +96,14 @@ namespace CloudHRMS.Services
         {
             try
             {
-                var existingPositionEntity = _unitOfWork.PositoryRepository.Getby(w => w.Id == positionViewModel.Id).SingleOrDefault();
+                var existingPositionEntity = _unitOfWork.PositionRepository.Getby(w => w.Id == positionViewModel.Id).SingleOrDefault();
                 existingPositionEntity.Code = positionViewModel.Code;
                 existingPositionEntity.Description = positionViewModel.Description;
                 existingPositionEntity.Level = positionViewModel.Level;
                 existingPositionEntity.UpdatedAt = DateTime.Now;
                 existingPositionEntity.UpdatedBy = "System";
                 existingPositionEntity.IpAddress = NetworkHelper.GetMachinePublicIP();
-                _unitOfWork.PositoryRepository.Update(existingPositionEntity);
+                _unitOfWork.PositionRepository.Update(existingPositionEntity);
                 _unitOfWork.Commit();
                 return existingPositionEntity;
             }
