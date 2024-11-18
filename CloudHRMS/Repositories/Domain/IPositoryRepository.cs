@@ -1,5 +1,4 @@
 ﻿using CloudHRMS.Models.Entities;
-using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Repositories.Common;
 
 namespace CloudHRMS.Repositories.Domain
