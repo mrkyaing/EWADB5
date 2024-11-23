@@ -1,4 +1,5 @@
 # Cloud HRMS
+- Cloud based HR Management Solution that can be used by small and medium business, as well as Large Enterprise. An application that can be managed from Recruitment to Retire of employee at all times from anywhere. It is designed to make employees happy and active in the workplace and to facilitate business owners and managers' activities quickly and efficiently.
 # Application Architecture Diagram
 ![Uploading a-r-p-1.png…]()
 ![Uploading a-r-p.png…]()
