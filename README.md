@@ -1,8 +1,10 @@
 # Cloud HRMS
-- Database ERD Design  https://docs.google.com/spreadsheets/d/1pv3IBIM7SlmtkHr_8huHTX2CiQJcsveraXFjC8bj1v8/edit?usp=sharing
 # Application Architecture Diagram
 ![Uploading a-r-p-1.png…]()
 ![Uploading a-r-p.png…]()
+
+# Database ERD Design
+- https://docs.google.com/spreadsheets/d/1pv3IBIM7SlmtkHr_8huHTX2CiQJcsveraXFjC8bj1v8/edit?usp=sharing
 
 # Functional Lists
 - User/Role Management (Authentication vs. Authorization) according to roles.
