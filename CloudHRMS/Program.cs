@@ -35,6 +35,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 //Register the Reporting service to be use.
 builder.Services.AddScoped<IReportingService, ReportingService>();
 
+/*
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -57,7 +58,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
-
+*/
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
