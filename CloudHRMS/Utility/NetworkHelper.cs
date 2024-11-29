@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Net;
 
-namespace CloudHRMS.Utility.NetworkHelper
+namespace CloudHRMS.Utility
 {
     public static class NetworkHelper
     {
@@ -11,7 +11,7 @@ namespace CloudHRMS.Utility.NetworkHelper
             string ip = "127.0.0.1";
             try
             {
-                ip = new System.Net.WebClient().DownloadString("https://api.ipify.org");
+                ip = new WebClient().DownloadString("https://api.ipify.org");
             }
             catch (Exception e)
             {

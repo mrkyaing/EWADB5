@@ -1,9 +1,13 @@
 using CloudHRMS.DAO;
-using CloudHRMS.Repositories;
 using CloudHRMS.Services;
+using CloudHRMS.UnitOfWorks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var config = builder.Configuration;//declare the configuration to read connection string of appSetting.json
@@ -24,12 +28,40 @@ builder.Services.AddRazorPages();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 //Register the Service Of Position Service
 builder.Services.AddScoped<IPositionService, PositionService>();
-//Register the Repository of Position Repository
-builder.Services.AddScoped<IPositoryRepository, PositionRepository>();
+//Register for UnitOfWork : DatabaseConnection,UnitOfWork:The Service is created once per HTTP request ('scope')
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //Register the user service to be use.
 builder.Services.AddScoped<IUserService, UserService>();
 //Register the Reporting service to be use.
 builder.Services.AddScoped<IReportingService, ReportingService>();
+
+/*
+// Adding Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+
+// Adding Jwt Bearer
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = configuration["JWT:ValidAudience"],
+        ValidIssuer = configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+    };
+});
+*/
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<!--For Reporting -->
 		<PackageReference Include="EPPlus" Version="7.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
 		<!--for Identity Membership -->
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
