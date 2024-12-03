@@ -4,6 +4,7 @@ using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudHRMS.Controllers
 {
@@ -77,6 +78,10 @@ namespace CloudHRMS.Controllers
         }
         public IActionResult List()
         {
+            //blog post url : https://code-maze.com/lazy-loading-and-eager-loading-in-entity-framework-core/
+            //ShiftAssign Eager Loading
+            //var shiftAssigns=_dbContext.ShiftAssigns.Include(e=>e.Employee).Include(s=>s.Shift).ToList();
+            //ShiftAssign Lazy Loading
             IList<ShiftAssignViewModel> shiftAssigns = (from s in _dbContext.ShiftAssigns
                                                         join e in _dbContext.Employees
                                                         on s.EmployeeId equals e.Id
