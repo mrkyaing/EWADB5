@@ -15,12 +15,10 @@ namespace CloudHRMS.Controllers
         {
             _applicationDbContext = applicationDbContext;
         }
-        [Authorize(Roles = "HR")]
-        public IActionResult Entry()
-        {
-            return View();
-        }
-        [Authorize(Roles = "HR")]
+       // [Authorize(Roles = "HR")]
+        public IActionResult Entry()=> View();
+
+       // [Authorize(Roles = "HR")]
         [HttpPost]
         public IActionResult Entry(DepartmentViewModel departmentViewModel)
         {
@@ -38,7 +36,8 @@ namespace CloudHRMS.Controllers
                     Code = departmentViewModel.Code,
                     Description = departmentViewModel.Description,
                     ExtensionPhone = departmentViewModel.ExtensionPhone,
-                    CreatedBy = "System"
+                    CreatedBy = "System",
+                    CreatedAt = DateTime.UtcNow
                 };
                 _applicationDbContext.Departments.Add(departmentEntity);
                 _applicationDbContext.SaveChanges();

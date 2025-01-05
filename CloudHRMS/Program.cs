@@ -11,17 +11,20 @@ ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var config = builder.Configuration;//declare the configuration to read connection string of appSetting.json
-var connectionString = config.GetConnectionString("CloudHRMSConnectingStringMySQL");
 //add the dbContext that we defined the ApplicationDbContext to get connection string name
-//Database Connection with MS SQL
+/*Database Connection with MS SQL
 builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(config.GetConnectionString("CloudHRMSConnectingString")));
+*/
 //Database Connection with MySQL
 /*
+var connectionString = config.GetConnectionString("CloudHRMSConnectingStringMySQL");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString,
     new MySqlServerVersion(new Version(8, 0, 35)),
     mySqlOptions => mySqlOptions.EnableRetryOnFailure()));
 */
+//adding the connection to the PostgreSQL database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 //Register for Identity UIs
 builder.Services.AddRazorPages();
 //Register for Identity dbContext for related Identity User and Roles.

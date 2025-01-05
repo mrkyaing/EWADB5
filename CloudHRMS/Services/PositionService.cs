@@ -23,7 +23,7 @@ namespace CloudHRMS.Services
                     Code = positionViewModel.Code,
                     Description = positionViewModel.Description,
                     Level = positionViewModel.Level,
-                    CreatedAt = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
                     CreatedBy = "System",
                     IsActive = true
                 };
@@ -87,7 +87,6 @@ namespace CloudHRMS.Services
                                                     Code = s.Code,
                                                     Description = s.Description,
                                                     Level = s.Level
-
                                                 }).ToList();
             return positions;
         }
