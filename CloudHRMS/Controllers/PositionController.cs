@@ -16,9 +16,9 @@ namespace CloudHRMS.Controllers
         #endregion
 
         #region Create Function
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public IActionResult Entry() => View();
-        // [Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
 
         [HttpPost]
         public IActionResult Entry(PositionViewModel positionViewModel)

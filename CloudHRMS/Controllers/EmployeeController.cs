@@ -21,7 +21,7 @@ namespace CloudHRMS.Controllers
             _applicationDbContext = applicationDbContext;
             _userService = userService;
         }
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public IActionResult Entry()
         {
             var employeeViewModel = new EmployeeViewModel();
@@ -39,7 +39,7 @@ namespace CloudHRMS.Controllers
 
             return View(employeeViewModel);//passing the employee viewModel to the related View
         }
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
         {
