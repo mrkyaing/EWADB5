@@ -8,7 +8,7 @@ namespace CloudHRMS.Models.Entities
         [Key]
         public string Id { get; set; }//Primary Key for table created process
         //Audit Columns
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string CreatedBy { get; set; }//WHO created this record
         public DateTime? UpdatedAt { get; set; }//WHEN Updated
         public string? UpdatedBy { get; set; }

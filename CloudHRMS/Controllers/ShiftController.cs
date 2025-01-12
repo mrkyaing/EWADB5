@@ -62,7 +62,7 @@ namespace CloudHRMS.Controllers
                 ViewData["Status"] = false;
             }
             bindAttendancePolicyData();
-            return View();
+            return RedirectToAction("List");
         }
 
         public IActionResult List()

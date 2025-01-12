@@ -21,7 +21,7 @@ namespace CloudHRMS.Services
             var result = await _userManager.CreateAsync(user, "I10V@akog02MG");//create a user with default password
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Employee");//assign created user to "Employee" role
+               // await _userManager.AddToRoleAsync(user, "Employee");//assign created user to "Employee" role
                 return user.Id;
             }
             else

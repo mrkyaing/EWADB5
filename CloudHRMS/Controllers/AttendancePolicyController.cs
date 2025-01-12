@@ -43,7 +43,7 @@ namespace CloudHRMS.Controllers
                 TempData["Msg"] = "Error occur when the record save to the system." + e.Message;
                 TempData["IsErrorOccur"] = true;
             }
-            return View();
+            return RedirectToAction("List");
         }
 
         public IActionResult List()

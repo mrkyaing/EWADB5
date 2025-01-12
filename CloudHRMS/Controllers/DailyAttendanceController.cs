@@ -95,11 +95,11 @@ namespace CloudHRMS.Controllers
                 else
                 {
                     var employees = _dbContext.Employees.Where(w => w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
-                    var existingDailyAttendances = _dbContext.DailyAttendances.Where(w => w.AttendanceDate.Date == dailyAttendanceViewModel.AttendanceDate.Date && w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
+                    var existingDailyAttendances = _dbContext.DailyAttendances.Where(w => w.AttendanceDate.Date.ToUniversalTime() == dailyAttendanceViewModel.AttendanceDate.Date.ToUniversalTime() && w.DepartmentId == dailyAttendanceViewModel.DepartmentId).ToList();
                     DeleteDailyAttendancesBeforeAdd(existingDailyAttendances);
                     if (dailyAttendanceViewModel.IsToCurrentDate)
                     {
-                        var startDate = dailyAttendanceViewModel.AttendanceDate;
+                        var startDate = dailyAttendanceViewModel.AttendanceDate.ToUniversalTime();
                         var now = DateTime.Now;
                         while (startDate.Date <= now.Date)
                         {
@@ -108,7 +108,7 @@ namespace CloudHRMS.Controllers
                                 DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
                                 {
                                     Id = Guid.NewGuid().ToString(),
-                                    AttendanceDate = startDate,
+                                    AttendanceDate = startDate.ToUniversalTime(),
                                     InTime = dailyAttendanceViewModel.InTime,
                                     OutTime = dailyAttendanceViewModel.OutTime,
                                     EmployeeId = employee.Id,

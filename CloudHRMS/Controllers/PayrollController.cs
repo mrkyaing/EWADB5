@@ -57,20 +57,20 @@ namespace CloudHRMS.Controllers
                 if (ui.DepartmentId != null)
                 {
                     //HR,01-03-2024 to 31-03-2024
-                    List<AttendanceMasterEntity> attendances = _applicationDbContext.AttendanceMasters.Where(w => w.DepartmentId == ui.DepartmentId && (w.AttendanceDate <= ui.ToDate)).OrderBy(o => o.AttendanceDate).ToList();
+                    List<AttendanceMasterEntity> attendances = _applicationDbContext.AttendanceMasters.Where(w => w.DepartmentId == ui.DepartmentId && (w.AttendanceDate.ToUniversalTime() <= ui.ToDate.ToUniversalTime())).OrderBy(o => o.AttendanceDate).ToList();
                     List<AttendanceMasterEntity> distinctEmployees = attendances.DistinctBy(e => e.EmployeeId).ToList();
                     foreach (AttendanceMasterEntity distinctEmployee in distinctEmployees)
                     {
                         AttendanceMasterCalculatedData calculatedData = new AttendanceMasterCalculatedData();
                         calculatedData.DepartmentId = distinctEmployee.DepartmentId;
                         calculatedData.EmployeeId = distinctEmployee.EmployeeId;
-                        calculatedData.FromDate = ui.FromDate;
-                        calculatedData.ToDate = ui.ToDate;
+                        calculatedData.FromDate = ui.FromDate.ToUniversalTime();
+                        calculatedData.ToDate = ui.ToDate.ToUniversalTime();
                         calculatedData.BasicPay = _applicationDbContext.Employees.Find(distinctEmployee.EmployeeId).Salary;
-                        calculatedData.LateCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLate && (w.AttendanceDate >= ui.FromDate && w.AttendanceDate <= ui.ToDate)).Count();
-                        calculatedData.EarlyOutCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsEarlyOut && (w.AttendanceDate >= ui.FromDate && w.AttendanceDate <= ui.ToDate)).Count();
-                        calculatedData.LeaveCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLeave && (w.AttendanceDate >= ui.FromDate && w.AttendanceDate <= ui.ToDate)).Count();
-                        calculatedData.AttendanceDays = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLeave == false && (w.AttendanceDate >= ui.FromDate && w.AttendanceDate <= ui.ToDate)).Count();
+                        calculatedData.LateCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLate && (w.AttendanceDate.ToUniversalTime() >= ui.FromDate.ToUniversalTime() && w.AttendanceDate <= ui.ToDate.ToUniversalTime())).Count();
+                        calculatedData.EarlyOutCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsEarlyOut && (w.AttendanceDate.ToUniversalTime() >= ui.FromDate.ToUniversalTime() && w.AttendanceDate <= ui.ToDate.ToUniversalTime())).Count();
+                        calculatedData.LeaveCount = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLeave && (w.AttendanceDate.ToUniversalTime() >= ui.FromDate.ToUniversalTime() && w.AttendanceDate.ToUniversalTime() <= ui.ToDate.ToUniversalTime())).Count();
+                        calculatedData.AttendanceDays = attendances.Where(w => w.EmployeeId == distinctEmployee.EmployeeId && w.IsLeave == false && (w.AttendanceDate.ToUniversalTime() >= ui.FromDate.ToUniversalTime() && w.AttendanceDate.ToUniversalTime() <= ui.ToDate.ToUniversalTime())).Count();
                         attendanceMasterCalculatedData.Add(calculatedData);
                     }
                     List<PayrollEntity> payrolls = CalculatePayroll(attendanceMasterCalculatedData);
@@ -95,9 +95,8 @@ namespace CloudHRMS.Controllers
             {
                 PayrollEntity payroll = new PayrollEntity();
                 payroll.Id = Guid.NewGuid().ToString();
-                payroll.CreatedAt = DateTime.Now;
-                payroll.FromDate = calculatedData.FromDate;
-                payroll.ToDate = calculatedData.ToDate;
+                payroll.FromDate = calculatedData.FromDate.ToUniversalTime();
+                payroll.ToDate = calculatedData.ToDate.ToUniversalTime();
                 payroll.EmployeeId = calculatedData.EmployeeId;
                 payroll.DepartmentId = calculatedData.DepartmentId;
                 payroll.IncomeTax = incomeTax;

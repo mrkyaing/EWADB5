@@ -56,8 +56,8 @@ namespace CloudHRMS.Controllers
                     Id = Guid.NewGuid().ToString(),
                     EmployeeId = ui.EmployeeId,
                     ShiftId = ui.ShiftId,
-                    FromDate = ui.FromDate,
-                    ToDate = ui.ToDate,
+                    FromDate = ui.FromDate.ToUniversalTime(),
+                    ToDate = ui.ToDate.ToUniversalTime(),
                     CreatedBy = "System"
 
                 };

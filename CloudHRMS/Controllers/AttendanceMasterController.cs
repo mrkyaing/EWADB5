@@ -55,7 +55,7 @@ namespace CloudHRMS.Controllers
                                                             join sa in _applicationDbContext.ShiftAssigns
                                                             on d.EmployeeId equals sa.EmployeeId
                                                             where sa.EmployeeId == ui.EmployeeId &&
-                                                            (ui.AttendanceDate >= sa.FromDate && sa.FromDate <= ui.ToDate)
+                                                            (ui.AttendanceDate.ToUniversalTime() >= sa.FromDate.ToUniversalTime() && sa.FromDate.ToUniversalTime() <= ui.ToDate.ToUniversalTime())
                                                             select new
                                                             {
                                                                 dailyAttendance = d,
@@ -68,14 +68,14 @@ namespace CloudHRMS.Controllers
                     {
                         AttendanceMasterEntity attendanceMaster = new AttendanceMasterEntity();
                         attendanceMaster.Id = Guid.NewGuid().ToString();
-                        attendanceMaster.CreatedAt = DateTime.Now;
                         attendanceMaster.IsLeave = false;
                         attendanceMaster.InTime = data.dailyAttendance.InTime;
                         attendanceMaster.OutTime = data.dailyAttendance.OutTime;
                         attendanceMaster.EmployeeId = data.shiftAssign.EmployeeId;
                         attendanceMaster.ShiftId = definedShift.Id;
                         attendanceMaster.DepartmentId = data.dailyAttendance.DepartmentId;
-                        attendanceMaster.AttendanceDate = data.dailyAttendance.AttendanceDate;
+                        attendanceMaster.AttendanceDate = data.dailyAttendance.AttendanceDate.ToUniversalTime();
+                        attendanceMaster.CreatedBy = "MG";
                         //checking out the late status
                         if (data.dailyAttendance.InTime > definedShift.LateAfter)
                         {
