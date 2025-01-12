@@ -38,9 +38,9 @@ namespace CloudHRMS.Controllers
         [Authorize(Roles = "HR")]
         public IActionResult DayEndProcess()
         {
-            ViewBag.Shifts = (_applicationDbContext.Shifts.ToList());
-            ViewBag.Employees = (_applicationDbContext.Employees.ToList());
-            ViewBag.Departments = (_applicationDbContext.Departments.ToList());
+            ViewBag.Shifts = _applicationDbContext.Shifts.ToList();
+            ViewBag.Employees = _applicationDbContext.Employees.ToList();
+            ViewBag.Departments = _applicationDbContext.Departments.ToList();
             return View();
         }
         [Authorize(Roles = "HR")]

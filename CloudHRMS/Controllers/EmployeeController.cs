@@ -56,23 +56,23 @@ namespace CloudHRMS.Controllers
                 //DTO: data transfer object from View Models to Entity
                 EmployeeEntity employeeEntity = new EmployeeEntity()
                 {
-                      Id = Guid.NewGuid().ToString(),
-    No = employeeViewModel.No,
-    FullName = employeeViewModel.FullName,
-    DOB = DateTime.SpecifyKind(employeeViewModel.DOB, DateTimeKind.Utc),
-    DOE = DateTime.SpecifyKind(employeeViewModel.DOE, DateTimeKind.Utc),
-    Phone = employeeViewModel.Phone,
-    Address = employeeViewModel.Address,
-    Salary = employeeViewModel.Salary,
-    Gender = employeeViewModel.Gender,
-    Email = employeeViewModel.Email,
-    DOR =employeeViewModel.DOR is not null? DateTime.SpecifyKind((DateTime)employeeViewModel.DOR, DateTimeKind.Utc):null,
-    CreatedAt = DateTime.UtcNow,
-    CreatedBy = "System",
-    IsActive = true,
-    DepartmentId = employeeViewModel.DepartmentId,
-    PositionId = employeeViewModel.PositionId,
-    UserId = userId
+                    Id = Guid.NewGuid().ToString(),
+                    No = employeeViewModel.No,
+                    FullName = employeeViewModel.FullName,
+                    DOB = DateTime.SpecifyKind(employeeViewModel.DOB, DateTimeKind.Utc),
+                    DOE = DateTime.SpecifyKind(employeeViewModel.DOE, DateTimeKind.Utc),
+                    Phone = employeeViewModel.Phone,
+                    Address = employeeViewModel.Address,
+                    Salary = employeeViewModel.Salary,
+                    Gender = employeeViewModel.Gender,
+                    Email = employeeViewModel.Email,
+                    DOR = employeeViewModel.DOR is not null ? DateTime.SpecifyKind((DateTime)employeeViewModel.DOR, DateTimeKind.Utc) : null,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = "System",
+                    IsActive = true,
+                    DepartmentId = employeeViewModel.DepartmentId,
+                    PositionId = employeeViewModel.PositionId,
+                    UserId = userId
                 };
                 _applicationDbContext.Employees.Add(employeeEntity);//adding the Entity to the context
                 _applicationDbContext.SaveChanges();//actually save the connected database

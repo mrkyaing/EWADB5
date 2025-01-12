@@ -1,5 +1,4 @@
-﻿﻿
-@model ShiftAssignViewModel
+﻿﻿@model ShiftAssignViewModel
 
 @{
     ViewData["Title"] = "ShiftAssign";
@@ -48,7 +47,7 @@
 
             @foreach (var shift in ViewBag.Shifts)
             {
-                if(shift.Id == Model.ShiftId)
+                if (shift.Id == Model.ShiftId)
                 {
                     <option value="@shift.Id" selected>@shift.Name</option>
                 }
